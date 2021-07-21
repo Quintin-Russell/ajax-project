@@ -1,0 +1,15 @@
+header {
+  display: flex;
+  background-color: #c9e4c5;
+  font-family: "Work Sans", sans-serif;
+  justify-content: space-between;
+  font-weight: 300;
+}
+
+.header {
+  padding-left: 1rem;
+}
+
+.padding {
+  padding: 1rem;
+}
