@@ -1,15 +1,52 @@
-header {
-  display: flex;
-  background-color: #c9e4c5;
-  font-family: "Work Sans", sans-serif;
-  justify-content: space-between;
-  font-weight: 300;
+.hidden {
+  display: none !important;
 }
 
 .header {
   padding-left: 1rem;
 }
 
-.padding {
+.container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+  width: 80%;
+}
+
+.lrg-button {
+  padding: 1rem;
+  margin: 1rem;
+  min-width: 50px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  font-size: 2rem;
+  border-radius: 3rem;
+  background-color: #c9e4c5;
+}
+
+.home-img {
+  max-width: 80%;
+  margin: 1rem;
+  border-radius: 1rem;
+}
+
+.form-label {
+  padding: 1rem;
+  width: 90%;
+  border-radius: 1rem;
+}
+
+.item-img {
+  width: 3rem;
   padding: 1rem;
 }
