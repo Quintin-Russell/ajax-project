@@ -17,11 +17,32 @@
   font-size: 1.5rem;
 }
 
+.lrg-button {
+  padding: 1rem;
+  margin: 1rem;
+  width: 70%;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  font-size: 2rem;
+  border-radius: 3rem;
+  background-color: #c9e4c5;
+}
+
+.sm-button {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  border-radius: 3rem;
+  background-color: #c9e4c5;
+}
+
+.sm-button:hover,
 .lrg-button:hover {
   cursor: pointer;
   background-color: #b5cda3;
 }
 
+.sm-button:active,
 .lrg-button:active {
   transform: translateY(1rem);
 }
@@ -48,5 +69,10 @@
   ,
   .roboto {
     font-size: 1em;
+  }
+
+  ,
+  .sm-button {
+    font-size: 1.25rem;
   }
 }
