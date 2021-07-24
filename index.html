@@ -17,12 +17,14 @@
 </head>
 <body>
   <header>
-    <div class="header">
-      <h2>MoodTrace</h2>
-    </div>
+      <ul class="header-list">
+        <li>
+          <h2 id="header-logo">MoodTrace</h2>
+        </li>
+      </ul>
   </header>
   <main>
-    <div data-view="home-screen" class="hidden container">
+    <div data-view="home-screen" class="container">
       <div class="container">
         <img class="home-img" src="images/ajax-logo.jpg" alt="MoodTrace-logo">
       </div>
@@ -35,16 +37,20 @@
         <button button="drafts" class="lrg-button">Drafts</button>
       </div>
     </div>
-    <div data-view="grateful" class="container">
+    <div data-view="grateful" class="hidden container">
       <!-- header-->
-      <div class="row div-background">
+      <div class="row div-background margin2rem">
         <div>
           <img class="item-img" src="images/ajax-logo.jpg" alt="ajax-logo">
         </div>
-        <section></section>
+        <section class="container">
+          <h2 class="new-journal-header work-sans">New Journal</h2>
+          <h2 data="current-date" class="header-logo work-sans"></h2>
+        </section>
       </div>
       <!--form-->
       <div class="container div-background">
+        <h2 class="new-journal-header work-sans grateful-heading">What are 5 Things That You Are Grateful For Today?</h2>
       <form class="container">
         <label class="form-label" for="grateful1"></label>
         <textarea class="form-label" name="grateful1" id="grateful1">

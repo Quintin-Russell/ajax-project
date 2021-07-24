@@ -25,3 +25,28 @@
 .lrg-button:active {
   transform: translateY(1rem);
 }
+
+.header-logo {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.new-journal-header {
+  color: #986833;
+  text-decoration: underline;
+}
+
+.grateful-heading {
+  text-align: center;
+  margin: 0;
+}
+
+@media screen and (max-width: 405px) {
+  .work-sans {
+    font-size: 1em;
+  }
+
+  ,
+  .roboto {
+    font-size: 1em;
+  }
+}
