@@ -2,7 +2,8 @@
 const entries = [];
 const drafts = [];
 
-/* function Entry() {
+// eslint-disable-next-line no-unused-vars
+function Entry() {
   this.title = undefined;
   this.fiveThings = [];
   this.text = undefined;
@@ -10,7 +11,7 @@ const drafts = [];
   this.score = undefined;
   this.scoreNum = undefined;
 }
-*/
+
 var previousEntries = localStorage.getItem('entries');
 // eslint-disable-next-line no-unused-vars
 previousEntries = JSON.parse(previousEntries);

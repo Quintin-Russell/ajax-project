@@ -53,6 +53,11 @@
   padding: 1rem;
 }
 
+#header-logo:hover {
+  cursor: pointer;
+  color: black;
+}
+
 /* media only screen
   and (min-device-width: 414px)
   and (max-device-width: 736px)
