@@ -4,9 +4,10 @@
 // const $homeDiv = document.querySelector('[data-view = "home-screen"]');
 // const $gratefulDiv = document.querySelector('[data-view = "grateful"]');
 // const $5thingsForm = document.getElementById('five-things');
+// const $journalTextForm = document.querySelector('#journal-cont');
 // const $headerUl = document.querySelector('.header-list');
 // const $headerLogo = document.querySelector('#header-logo');
-// const $dateH2 = document.querySelector('[data="date"]');
+// const $dateH2 = document.querySelectorAll('[data="date"]');
 // const $saveDraftButton = document.querySelectorAll('[button = "save-draft"]');
 // const $nJContButton = document.querySelector('[button = "new-journal-cont"]');
 // const $grateful1 = document.getElementById('grateful1');
@@ -16,6 +17,8 @@
 // const $grateful5 = document.getElementById('grateful5');
 // const $fiveThings = [$grateful1, $grateful2, $grateful3, $grateful4, $grateful5];
 // const $NJDiv = document.querySelector('[data-view="new-journal"]');
+// const $NJTextCont = document.querySelector('#journal-cont-text');
+// const $doneButton = document.querySelector('[button="done"]');
 // const $pgList = [$gratefulDiv, $NJDiv];
 // let date;
 // let formattedDate;
@@ -38,8 +41,10 @@
 // }
 
 // function removePageID() {
-//   const $pgID = document.querySelector('[data = "pg-ID"]');
-//   $headerUl.removeChild($pgID);
+//   if (($headerUl.childNodes) > 3) {
+//     const $pgID = document.querySelector('[data = "pg-ID"]');
+//     $headerUl.removeChild($pgID);
+//   }
 // }
 
 // // home page eventListeners
@@ -54,7 +59,10 @@
 //   $headerUl.appendChild($nJHeader);
 //   $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
 //   $headerLogo.setAttribute('class', 'header-logo work-sans');
-//   $dateH2.textContent = 'Date: ' + formattedDate;
+//   let item;
+//   for (item of $dateH2) {
+//     item.textContent = 'Date: ' + formattedDate;
+//   }
 // });
 // /* $draftButton.addEventListener('click', function (e) {
 //   $homeDiv.setAttribute('class', 'hidden container');
@@ -70,6 +78,7 @@
 // $gratefulDiv.addEventListener('click', function (e) {
 //   for (const sm of $saveDraftButton) {
 //     if (e.target === sm) {
+//       e.preventDefault();
 //       const newEntry = new Entry();
 //       newEntry.title = date;
 //       for (const item of $fiveThings) {
@@ -86,6 +95,7 @@
 // });
 
 // $nJContButton.addEventListener('click', function (e) {
+//   e.preventDefault();
 //   showPage($NJDiv, $gratefulDiv);
 //   const newEntry = new Entry();
 //   newEntry.title = date;
@@ -94,7 +104,7 @@
 //     const txt = item.value;
 //     newEntry.fiveThings.push(txt);
 //   }
-//   $dateH2.textContent = newEntry.formattedDate;
+//   currentObj = newEntry;
 // });
 
 // $headerLogo.addEventListener('click', function (e) {
@@ -112,4 +122,14 @@
 //     showPage($homeDiv, page);
 //   }
 //   window.alert('Your journal entry was saved as a draft!');
+// });
+
+// // add function that submits API req
+// $doneButton.addEventListener('click', function (e) {
+//   $5thingsForm.reset();
+//   $journalTextForm.reset();
+//   e.preventDefault();
+//   if (($NJTextCont.value.length) > 0) {
+//     currentObj.text = $NJTextCont.value;
+//   }
 // });

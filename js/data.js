@@ -1,6 +1,8 @@
 /* exported data */
 const entries = [];
 const drafts = [];
+// eslint-disable-next-line prefer-const
+// let currentObj = null;
 
 // eslint-disable-next-line no-unused-vars
 function Entry() {
