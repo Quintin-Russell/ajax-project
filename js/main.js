@@ -47,6 +47,10 @@
 //   }
 // }
 
+// function sendMoodReq(text) {
+
+// }
+
 // // home page eventListeners
 // $newJournalButton.addEventListener('click', function (e) {
 //   showPage($gratefulDiv, $homeDiv);
