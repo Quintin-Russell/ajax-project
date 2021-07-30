@@ -24,7 +24,7 @@
       </ul>
   </header>
   <main>
-    <div data-view="home-screen" class="container">
+    <div data-view="home-screen" class="hidden">
       <div class="container">
         <img class="home-img" src="images/ajax-logo.jpg" alt="MoodTrace-logo">
       </div>
@@ -32,9 +32,9 @@
         <h2 class="work-sans">Welcome Back!</h2>
       </div>
       <div class="padding div-background container">
-        <button button="new-journal" class="lrg-button">Start a New Journal Entry</button>
-        <button button="graph" class="lrg-button">View My MoodGraph</button>
-        <button button="drafts" class="lrg-button">Drafts</button>
+        <button id="new-journal" class="lrg-button">Start a New Journal Entry</button>
+        <button id="graph" class="lrg-button">View My MoodGraph</button>
+        <button id="drafts" class="lrg-button">Drafts</button>
       </div>
     </div>
     <div data-view="grateful" class="hidden container">
@@ -45,7 +45,7 @@
         </div>
         <section class="container">
           <h2 class="new-journal-header work-sans">New Journal</h2>
-          <h2 data="current-date" class="header-logo work-sans"></h2>
+          <h2 data="date" class="header-logo work-sans"></h2>
         </section>
       </div>
       <!--form-->
@@ -74,15 +74,52 @@
         </textarea>
 
       <div class="row smbutton-container">
-        <button button="save-draft" type="submit" class="sm-button">Save as Draft</button>
-        <button button="new-journal-cont" type="submit" class="sm-button">Continue</button>
+        <button button="save-draft" class="sm-button">Save as Draft</button>
+        <button button="new-journal-cont" class="sm-button">Continue</button>
       </div>
   </form>
 </div>
     </div>
-<div data-view="new-journal" class="hidden container">
+    <div data-view="new-journal" class="container">
+      <!-- header-->
+      <div class="row div-background margin2rem">
+        <div>
+          <img class="item-img" src="images/ajax-logo.jpg" alt="ajax-logo">
+        </div>
+        <section class="container">
+          <h2 class="new-journal-header work-sans">New Journal</h2>
+          <h2 data="date" class="header-logo work-sans"></h2>
+        </section>
+      </div>
+    <!--form-->
+      <div class="container div-background">
+        <h2 class="new-journal-header work-sans grateful-heading">What's On Your Mind?</h2>
+        <form id="journal-cont" class="container NJ-bkgrd">
+          <label for="journal-cont"></label>
+          <textarea class="form-label NJ-textarea" placeholder= "
+Ideas:
 
-</div>
+
+-What happened today/this week/this month
+
+
+-What do you want to happen?
+
+
+-How will you make progress toward your goals today/this week?
+
+
+-When was the last time something got you emotional?
+
+
+-Write down a stream of consciousness with no filter for 3 minutes" name= "journal-cont" id="journal-cont-text"></textarea>
+        </form>
+      <div class="row smbutton-container">
+        <button button="save-draft" class="sm-button">Save as Draft</button>
+        <button button="done" class="sm-button">Done!</button>
+      </div>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

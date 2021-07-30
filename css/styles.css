@@ -65,14 +65,19 @@
   .work-sans {
     font-size: 1em;
   }
+}
 
-  ,
-  .roboto {
-    font-size: 1em;
-  }
-
-  ,
+@media screen and (max-width: 470px) {
   .sm-button {
-    font-size: 1.25rem;
+    font-size: 1rem;
+    font-weight: 300;
   }
+}
+
+@media screen and (max-width: 700px) {
+  .lrg-button {
+    font-size: 1rem;
+    font-weight: 300;
+  }
+}
 }

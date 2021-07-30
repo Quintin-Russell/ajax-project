@@ -5,6 +5,7 @@ const drafts = [];
 // eslint-disable-next-line no-unused-vars
 function Entry() {
   this.title = undefined;
+  this.formattedDate = undefined;
   this.fiveThings = [];
   this.text = undefined;
   this.response = undefined;
