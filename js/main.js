@@ -47,8 +47,41 @@
 //   }
 // }
 
-// function sendMoodReq(text) {
+// function getScoreNum(score) {
+//   if (score === 'P+') {
+//     currentObj.scoreNum = 2;
+//   } else if (score === 'P') {
+//     currentObj.scoreNum = 1;
+//   } else if (score === 'NEU') {
+//     currentObj.scoreNum = 0;
+//   } else if (score === 'N') {
+//     currentObj.scoreNum = -1;
+//   } else if (score === 'N+') {
+//     currentObj.scoreNum = -2;
+//   } else {
+//     currentObj.scoreNum = null;
+//   }
+// }
 
+// function sendMoodReq(text) {
+//   const formdata = new FormData();
+//   formdata.append('key', 'e599b98b4c266944eb2b0f2ada2724cc');
+//   formdata.append('txt', text);
+//   formdata.append('lang', 'auto');
+
+//   const requestOptions = {
+//     method: 'POST',
+//     body: formdata,
+//     redirect: 'follow'
+//   };
+
+//   const response = fetch('https://api.meaningcloud.com/sentiment-2.1', requestOptions)
+//     .then(response => response.json())
+//     .then(responseJSON => {
+//       currentObj.response = responseJSON;
+//       return responseJSON;
+//     })
+//     .catch(error => window.alert("Don't know what happened there, but something went wrong. Please try to submit again"));
 // }
 
 // // home page eventListeners
@@ -130,10 +163,18 @@
 
 // // add function that submits API req
 // $doneButton.addEventListener('click', function (e) {
-//   $5thingsForm.reset();
-//   $journalTextForm.reset();
-//   e.preventDefault();
 //   if (($NJTextCont.value.length) > 0) {
+//     e.preventDefault();
 //     currentObj.text = $NJTextCont.value;
+//     console.log('currentObj.response', currentObj.response);
+//     const score = currentObj.response.score_tag;
+//     console.log('score', score);
+//     currentObj.scoreNum = getScoreNum(score);
+//     currentObj.score = score;
+//     console.log(currentObj);
+//     $5thingsForm.reset();
+//     $journalTextForm.reset();
+//   } else {
+//     window.alert("It looks like you forgot to write something. Tell us what's on your mind! (or save it as a draft for later)");
 //   }
 // });
