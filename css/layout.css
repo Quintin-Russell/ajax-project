@@ -67,9 +67,22 @@
   height: 100%;
 }
 
-/* media only screen
-  and (min-device-width: 414px)
-  and (max-device-width: 736px)
-  and (-webkit-min-device-pixel-ratio: 3) {
+.overlay {
+  background: rgba(0, 0, 0, 0.61);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: inherit;
+  justify-content: center;
+  align-items: center;
+}
 
-} */
+.modal {
+  background-color: white;
+  height: 90%;
+  width: 90%;
+  justify-content: space-between;
+  text-align: center;
+}

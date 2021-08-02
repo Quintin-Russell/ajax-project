@@ -1,6 +1,6 @@
 // const $newJournalButton = document.querySelector('#new-journal');
 // const $draftButton = document.querySelector('#drafts');
-// const $graphButton = document.querySelector('#graph');
+// const $graphButton = document.querySelectorAll('[button = "view-graph"]');
 // const $homeDiv = document.querySelector('[data-view = "home-screen"]');
 // const $gratefulDiv = document.querySelector('[data-view = "grateful"]');
 // const $5thingsForm = document.getElementById('five-things');
@@ -19,7 +19,10 @@
 // const $NJDiv = document.querySelector('[data-view="new-journal"]');
 // const $NJTextCont = document.querySelector('#journal-cont-text');
 // const $doneButton = document.querySelector('[button="done"]');
-// const $pgList = [$gratefulDiv, $NJDiv];
+// const $modalDiv = document.querySelector('[data-view="done-modal"]');
+// const $scoreH1 = document.querySelector('[data="modal-score"]');
+// const $modalQuoteP = document.querySelector('[data="modal-quote"]');
+// const $pgList = [$gratefulDiv, $NJDiv, $modalDiv];
 // let date;
 // let formattedDate;
 
@@ -79,9 +82,26 @@
 //     .then(response => response.json())
 //     .then(responseJSON => {
 //       currentObj.response = responseJSON;
-//       return responseJSON;
+//       currentObj.score = currentObj.response.score_tag;
+//       $5thingsForm.reset();
+//       $journalTextForm.reset();
+//       getScoreNum(currentObj.score);
+//       showPage($modalDiv, $NJDiv);
+//       return currentObj;
 //     })
 //     .catch(error => window.alert("Don't know what happened there, but something went wrong. Please try to submit again"));
+// }
+
+// function randQuote(score) {
+//   let quote = '';
+//   for (const key in quotes) {
+//     if (key === score) {
+//       const quoteArr = quotes[key];
+//       const index = Math.floor(Math.random() * (quoteArr.length - 1));
+//       quote = quoteArr[index];
+//       return quote;
+//     }
+//   }
 // }
 
 // // home page eventListeners
@@ -161,20 +181,23 @@
 //   window.alert('Your journal entry was saved as a draft!');
 // });
 
-// // add function that submits API req
 // $doneButton.addEventListener('click', function (e) {
 //   if (($NJTextCont.value.length) > 0) {
 //     e.preventDefault();
 //     currentObj.text = $NJTextCont.value;
-//     console.log('currentObj.response', currentObj.response);
-//     const score = currentObj.response.score_tag;
-//     console.log('score', score);
-//     currentObj.scoreNum = getScoreNum(score);
-//     currentObj.score = score;
-//     console.log(currentObj);
-//     $5thingsForm.reset();
-//     $journalTextForm.reset();
+//     sendMoodReq(currentObj.text);
+//     removePageID();
 //   } else {
 //     window.alert("It looks like you forgot to write something. Tell us what's on your mind! (or save it as a draft for later)");
 //   }
+// });
+
+// $modalDiv.addEventListener('load', function (e) {
+//   const modalScore = `Your Score: ${currentObj.scoreNum}`;
+//   console.log('modalScore', modalScore);
+//   const quote = randQuote(currentObj.score);
+//   console.log('quote', quote);
+//   $homeDiv.setAttribute('class', 'container');
+//   $scoreH1.textContent = modalScore;
+//   $modalQuoteP.textContent = quote;
 // });
