@@ -185,14 +185,14 @@
 //   if (($NJTextCont.value.length) > 0) {
 //     e.preventDefault();
 //     currentObj.text = $NJTextCont.value;
-//     sendMoodReq(currentObj.text);
+//     sendMoodReq(currentObj);
 //     removePageID();
 //   } else {
 //     window.alert("It looks like you forgot to write something. Tell us what's on your mind! (or save it as a draft for later)");
 //   }
 // });
 
-// $modalDiv.addEventListener('load', function (e) {
+// $modalDiv.addEventListener('change', function (e) {
 //   const modalScore = `Your Score: ${currentObj.scoreNum}`;
 //   console.log('modalScore', modalScore);
 //   const quote = randQuote(currentObj.score);
