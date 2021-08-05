@@ -22,6 +22,7 @@
 // const $modalDiv = document.querySelector('[data-view="done-modal"]');
 // const $scoreH1 = document.querySelector('[data="modal-score"]');
 // const $modalQuoteP = document.querySelector('[data="modal-quote"]');
+// const $homeButton = document.querySelector('[button="home"]');
 // const $pgList = [$gratefulDiv, $NJDiv, $modalDiv];
 // let date;
 // let formattedDate;
@@ -66,6 +67,30 @@
 //   }
 // }
 
+// function randQuote(score) {
+//   let quote = '';
+//   for (const key in quotes) {
+//     if (key === score) {
+//       const quoteArr = quotes[key];
+//       const index = Math.floor(Math.random() * (quoteArr.length - 1));
+//       quote = quoteArr[index];
+//       return quote;
+//     }
+//   }
+// }
+
+// function afterAPI() {
+//   $5thingsForm.reset();
+//   $journalTextForm.reset();
+//   getScoreNum(currentObj.score);
+//   const modalScore = `Your Score: ${currentObj.scoreNum}`;
+//   const quote = randQuote(currentObj.score);
+//   $scoreH1.textContent = modalScore;
+//   $modalQuoteP.textContent = quote;
+//   removePageID();
+//   showPage($modalDiv, $NJDiv);
+// }
+
 // function sendMoodReq(text) {
 //   const formdata = new FormData();
 //   formdata.append('key', 'e599b98b4c266944eb2b0f2ada2724cc');
@@ -78,30 +103,14 @@
 //     redirect: 'follow'
 //   };
 
-//   const response = fetch('https://api.meaningcloud.com/sentiment-2.1', requestOptions)
+//   fetch('https://api.meaningcloud.com/sentiment-2.1', requestOptions)
 //     .then(response => response.json())
 //     .then(responseJSON => {
 //       currentObj.response = responseJSON;
 //       currentObj.score = currentObj.response.score_tag;
-//       $5thingsForm.reset();
-//       $journalTextForm.reset();
-//       getScoreNum(currentObj.score);
-//       showPage($modalDiv, $NJDiv);
-//       return currentObj;
+//       afterAPI();
 //     })
 //     .catch(error => window.alert("Don't know what happened there, but something went wrong. Please try to submit again"));
-// }
-
-// function randQuote(score) {
-//   let quote = '';
-//   for (const key in quotes) {
-//     if (key === score) {
-//       const quoteArr = quotes[key];
-//       const index = Math.floor(Math.random() * (quoteArr.length - 1));
-//       quote = quoteArr[index];
-//       return quote;
-//     }
-//   }
 // }
 
 // // home page eventListeners
@@ -185,19 +194,13 @@
 //   if (($NJTextCont.value.length) > 0) {
 //     e.preventDefault();
 //     currentObj.text = $NJTextCont.value;
-//     sendMoodReq(currentObj);
-//     removePageID();
+//     const instanceVar = currentObj;
+//     sendMoodReq(currentObj.text);
 //   } else {
 //     window.alert("It looks like you forgot to write something. Tell us what's on your mind! (or save it as a draft for later)");
 //   }
 // });
 
-// $modalDiv.addEventListener('change', function (e) {
-//   const modalScore = `Your Score: ${currentObj.scoreNum}`;
-//   console.log('modalScore', modalScore);
-//   const quote = randQuote(currentObj.score);
-//   console.log('quote', quote);
-//   $homeDiv.setAttribute('class', 'container');
-//   $scoreH1.textContent = modalScore;
-//   $modalQuoteP.textContent = quote;
+// $homeButton.addEventListener('click', function (e) {
+//   showPage($homeDiv, $modalDiv);
 // });
