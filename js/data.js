@@ -1,4 +1,3 @@
-/* exported data */
 const entries = [];
 const drafts = [];
 // eslint-disable-next-line no-unused-vars

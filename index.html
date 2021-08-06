@@ -32,9 +32,9 @@
         <h2 class="work-sans">Welcome Back!</h2>
       </div>
       <div class="padding div-background container">
-        <button id="new-journal" class="lrg-button">Start a New Journal Entry</button>
-        <button button="view-graph" class="lrg-button">View My MoodGraph</button>
-        <button id="drafts" class="lrg-button">Drafts</button>
+        <button button="new-journal" class="lrg-button">Start a New Journal Entry</button>
+        <button button="view-moodgraph" class="lrg-button">View My MoodGraph</button>
+        <button button="drafts" class="lrg-button">Drafts</button>
       </div>
     </div>
     <div data-view="grateful" class="hidden">
@@ -80,7 +80,7 @@
   </form>
 </div>
     </div>
-    <div data-view="new-journal" class="hidden container">
+    <div data-view="new-journal" class="hidden">
       <!-- header-->
       <div class="row div-background margin2rem">
         <div>
@@ -140,7 +140,14 @@ Ideas:
       </div>
 
     </div>
+    <div data-view="graph" class="hidden">
+      <div>
+        <canvas id="myChart"></canvas>
+        <button button="home" class="lrg-button">Return To Home Screen</button>
+      </div>
+    </div>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>

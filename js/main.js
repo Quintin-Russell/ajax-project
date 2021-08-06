@@ -1,6 +1,6 @@
-const $newJournalButton = document.querySelector('#new-journal');
+const $newJournalButton = document.querySelector('[button = "new-journal"]');
 // const $draftButton = document.querySelector('#drafts');
-// const $graphButton = document.querySelectorAll('[button = "view-graph"]');
+const $graphButton = document.querySelector('[button = "view-moodgraph"]');
 const $homeDiv = document.querySelector('[data-view = "home-screen"]');
 const $gratefulDiv = document.querySelector('[data-view = "grateful"]');
 const $5thingsForm = document.getElementById('five-things');
@@ -22,8 +22,10 @@ const $doneButton = document.querySelector('[button="done"]');
 const $modalDiv = document.querySelector('[data-view="done-modal"]');
 const $scoreH1 = document.querySelector('[data="modal-score"]');
 const $modalQuoteP = document.querySelector('[data="modal-quote"]');
-const $homeButton = document.querySelector('[button="home"]');
-const $pgList = [$gratefulDiv, $NJDiv, $modalDiv];
+const $homeButton = document.querySelectorAll('[button="home"]');
+const $graphDiv = document.querySelector('[data-view ="graph"]');
+const $graphCanv = document.querySelector('#myChart');
+const $pgList = [$gratefulDiv, $NJDiv, $modalDiv, $graphDiv];
 let date;
 let formattedDate;
 
@@ -99,7 +101,39 @@ function afterAPI() {
   $scoreH1.textContent = modalScore;
   $modalQuoteP.textContent = quote;
   removePageID();
+  // eslint-disable-next-line no-undef
+  entries.push(currentObj);
   showPage($modalDiv, $NJDiv);
+}
+// eslint-disable-next-line no-unused-vars
+function sendGraphAPI(entries) {
+  // eslint-disable-next-line no-undef
+  const moodChart = new Chart($graphCanv, {
+    type: 'scatter',
+    data: {
+      datasets: [{
+        label: 'MoodGraph',
+        data: []
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          type: 'linear',
+          position: 'bottom'
+        }
+      }
+    }
+  }
+  );
+  for (const ent of entries) {
+    const coords = {};
+    coords.x = ent.formattedDate;
+    coords.y = ent.scoreNum;
+    let datas = moodChart.data.datasets[0];
+    datas = datas.data;
+    datas.push(coords);
+  }
 }
 
 function sendMoodReq(text) {
@@ -122,6 +156,8 @@ function sendMoodReq(text) {
       // eslint-disable-next-line no-undef
       currentObj.score = currentObj.response.score_tag;
       afterAPI();
+      // eslint-disable-next-line no-undef
+      currentObj = null;
     })
     // eslint-disable-next-line node/handle-callback-err
     .catch(error => window.alert("Don't know what happened there, but something went wrong. Please try to submit again"));
@@ -144,16 +180,24 @@ $newJournalButton.addEventListener('click', function (e) {
     item.textContent = 'Date: ' + formattedDate;
   }
 });
+
+$graphButton.addEventListener('click', function (e) {
+  showPage($graphDiv, $homeDiv);
+  const $nJHeader = document.createElement('li');
+  const $nJHeaderH2 = document.createElement('h2');
+  $nJHeaderH2.textContent = 'MoodGraph';
+  $nJHeader.setAttribute('data', 'pg-ID');
+  $nJHeader.appendChild($nJHeaderH2);
+  $headerUl.appendChild($nJHeader);
+  $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
+  $headerLogo.setAttribute('class', 'header-logo work-sans');
+});
 /* $draftButton.addEventListener('click', function (e) {
   $homeDiv.setAttribute('class', 'hidden container');
   $draftDiv.setAttribute('class', 'flex container');
 });
-
-$graphButton.addEventListener('click', function (e) {
-  $homeDiv.setAttribute('class', 'hidden container');
-  $graphDiv.setAttribute('class', 'flex container');
-});
 */
+
 // gratefulDiv eventListeners
 $gratefulDiv.addEventListener('click', function (e) {
   for (const sm of $saveDraftButton) {
@@ -222,6 +266,13 @@ $doneButton.addEventListener('click', function (e) {
   }
 });
 
-$homeButton.addEventListener('click', function (e) {
-  showPage($homeDiv, $modalDiv);
+window.addEventListener('click', function (e) {
+  for (const but of $homeButton) {
+    if (e.target === but) {
+      for (const pg of $pgList) {
+        showPage($homeDiv, pg);
+      }
+      break;
+    }
+  }
 });
