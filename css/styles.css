@@ -61,6 +61,10 @@
   margin: 0;
 }
 
+.modal-desc {
+  font-size: 1rem;
+}
+
 @media screen and (max-width: 405px) {
   .work-sans {
     font-size: 1em;
