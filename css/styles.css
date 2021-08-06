@@ -1,0 +1,87 @@
+.div-background {
+  background-color: rgba(193, 172, 149, 0.2);
+  max-width: 80%;
+}
+
+.roboto {
+  font-family: "Roboto", sans-serif;
+}
+
+.work-sans {
+  font-family: "Work Sans", sans-serif;
+}
+
+.welcome {
+  font-weight: 200;
+  text-align: left;
+  font-size: 1.5rem;
+}
+
+.lrg-button {
+  padding: 1rem;
+  margin: 1rem;
+  width: 70%;
+  font-family: "Roboto", sans-serif;
+  font-weight: 200;
+  font-size: 2rem;
+  border-radius: 3rem;
+  background-color: #c9e4c5;
+}
+
+.sm-button {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  border-radius: 3rem;
+  background-color: #c9e4c5;
+}
+
+.sm-button:hover,
+.lrg-button:hover {
+  cursor: pointer;
+  background-color: #b5cda3;
+}
+
+.sm-button:active,
+.lrg-button:active {
+  transform: translateY(1rem);
+}
+
+.header-logo {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.new-journal-header {
+  color: #986833;
+  text-decoration: underline;
+}
+
+.grateful-heading {
+  text-align: center;
+  margin: 0;
+}
+
+.modal-desc {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 405px) {
+  .work-sans {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .sm-button {
+    font-size: 1rem;
+    font-weight: 300;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .lrg-button {
+    font-size: 1rem;
+    font-weight: 300;
+  }
+}
+}

@@ -1,0 +1,88 @@
+.hidden {
+  display: none !important;
+}
+
+.header {
+  padding-left: 1rem;
+}
+
+.header-list {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 1rem;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.home-img {
+  max-width: 80%;
+  margin: 1rem;
+  border-radius: 1rem;
+}
+
+.form-label {
+  padding: 1rem;
+  width: 90%;
+  border-radius: 1rem;
+}
+
+.item-img {
+  width: 8rem;
+}
+
+.margin2rem {
+  margin: 2rem;
+}
+
+.smbutton-container {
+  padding: 1rem;
+}
+
+#header-logo:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.NJ-bkgrd {
+  height: 40rem;
+  padding: 0;
+}
+
+.NJ-textarea {
+  height: 100%;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.61);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: inherit;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  height: 90%;
+  width: 90%;
+  justify-content: space-between;
+  text-align: center;
+}

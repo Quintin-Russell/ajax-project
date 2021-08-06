@@ -8,11 +8,138 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
+      <ul class="header-list">
+        <li id="header-logo">
+            <h2>MoodTrace</h2>
+        </li>
+      </ul>
   </header>
   <main>
+    <div data-view="home-screen" class="container">
+      <div class="container">
+        <img class="home-img" src="images/ajax-logo.jpg" alt="MoodTrace-logo">
+      </div>
+      <div class="welcome container">
+        <h2 class="work-sans">Welcome Back!</h2>
+      </div>
+      <div class="padding div-background container">
+        <button id="new-journal" class="lrg-button">Start a New Journal Entry</button>
+        <button button="view-graph" class="lrg-button">View My MoodGraph</button>
+        <button id="drafts" class="lrg-button">Drafts</button>
+      </div>
+    </div>
+    <div data-view="grateful" class="hidden">
+      <!-- header-->
+      <div class="row div-background margin2rem">
+        <div>
+          <img class="item-img" src="images/ajax-logo.jpg" alt="ajax-logo">
+        </div>
+        <section class="container">
+          <h2 class="new-journal-header work-sans">New Journal</h2>
+          <h2 data="date" class="header-logo work-sans"></h2>
+        </section>
+      </div>
+      <!--form-->
+      <div class="container div-background">
+        <h2 class="new-journal-header work-sans grateful-heading">What are 5 Things That You Are Grateful For Today?</h2>
+      <form id="five-things" class="container">
+        <label class="form-label" for="grateful1"></label>
+        <textarea class="form-label" name="grateful1" id="grateful1">
+
+        </textarea>
+        <label class="form-label" for="grateful2"></label>
+        <textarea class="form-label" name="grateful2" id="grateful2">
+
+        </textarea>
+        <label class="form-label" for="grateful3"></label>
+        <textarea class="form-label" name="grateful13" id="grateful3">
+
+        </textarea>
+        <label class="form-label" for="grateful4"></label>
+        <textarea class="form-label" name="grateful4" id="grateful4">
+
+        </textarea>
+        <label class="form-label" for="grateful5"></label>
+        <textarea class="form-label" name="grateful5" id="grateful5">
+
+        </textarea>
+
+      <div class="row smbutton-container">
+        <button button="save-draft" class="sm-button">Save as Draft</button>
+        <button button="new-journal-cont" class="sm-button">Continue</button>
+      </div>
+  </form>
+</div>
+    </div>
+    <div data-view="new-journal" class="hidden container">
+      <!-- header-->
+      <div class="row div-background margin2rem">
+        <div>
+          <img class="item-img" src="images/ajax-logo.jpg" alt="ajax-logo">
+        </div>
+        <section class="container">
+          <h2 class="new-journal-header work-sans">New Journal</h2>
+          <h2 data="date" class="header-logo work-sans"></h2>
+        </section>
+      </div>
+    <!--form-->
+      <div class="container div-background">
+        <h2 class="new-journal-header work-sans grateful-heading">What's On Your Mind?</h2>
+        <form id="journal-cont" class="container NJ-bkgrd">
+          <label for="journal-cont"></label>
+          <textarea class="form-label NJ-textarea" placeholder= "
+Ideas:
+
+
+-What happened today/this week/this month
+
+
+-What do you want to happen?
+
+
+-How will you make progress toward your goals today/this week?
+
+
+-When was the last time something got you emotional?
+
+
+-Write down a stream of consciousness with no filter for 3 minutes" name= "journal-cont" id="journal-cont-text"></textarea>
+        </form>
+      <div class="row smbutton-container">
+        <button button="save-draft" class="sm-button">Save as Draft</button>
+        <button button="done" class="sm-button">Done!</button>
+      </div>
+      </div>
+    </div>
+    <div data-view="done-modal" class="hidden">
+      <div class="overlay container">
+        <div class="modal container">
+          <section>
+             <h2 class="work-sans">Nice Work!</h2>
+            <p class="roboto">Thanks for taking some time out of your day to help yourself. Jounaling is one of the most positive things you can do
+            for your mental health and a common denominator for top performers in any field!</p>
+          </section>
+          <h1 data="modal-score" class="work-sans"></h1>
+          <p class="modal-desc roboto">Scoring: 2 = Very Positive, 1 = Positive, 0 = Neutral,  -1 = Negative,  -2 = Very Negative</p>
+          <p data="modal-quote" class="roboto"></p>
+          <div>
+          <button button="view-graph" class="lrg-button">View Your MoodGraph</button>
+          <button button="home" class="lrg-button">Close</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
