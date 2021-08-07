@@ -6,7 +6,7 @@ const $gratefulDiv = document.querySelector('[data-view = "grateful"]');
 const $5thingsForm = document.getElementById('five-things');
 const $journalTextForm = document.querySelector('#journal-cont');
 const $headerUl = document.querySelector('.header-list');
-const $headerLogo = document.querySelector('#header-logo');
+const $headerLogo = document.querySelector('[data = "header-logo"]');
 const $dateH2 = document.querySelectorAll('[data="date"]');
 const $saveDraftButton = document.querySelectorAll('[button = "save-draft"]');
 const $nJContButton = document.querySelector('[button = "new-journal-cont"]');
@@ -34,6 +34,14 @@ function showPage(show, hide) {
   hide.setAttribute('class', 'hidden');
 }
 
+function setHeaderID() {
+  $headerLogo.setAttribute('id', 'header-logo');
+}
+
+function removeHeaderID() {
+  $headerLogo.setAttribute('id', null);
+}
+
 function getDate() {
   const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   date = new Date();
@@ -47,7 +55,7 @@ function getDate() {
 }
 
 function removePageID() {
-  if (($headerUl.childNodes) > 3) {
+  if (($headerUl.childNodes.length) > 3) {
     const $pgID = document.querySelector('[data = "pg-ID"]');
     $headerUl.removeChild($pgID);
   }
@@ -134,6 +142,7 @@ function sendGraphAPI(entries) {
     datas = datas.data;
     datas.push(coords);
   }
+  // $graphCanv.appendChild(moodChart);
 }
 
 function sendMoodReq(text) {
@@ -166,6 +175,7 @@ function sendMoodReq(text) {
 // home page eventListeners
 $newJournalButton.addEventListener('click', function (e) {
   showPage($gratefulDiv, $homeDiv);
+  setHeaderID();
   const $nJHeader = document.createElement('li');
   const $nJHeaderH2 = document.createElement('h2');
   getDate();
@@ -183,6 +193,7 @@ $newJournalButton.addEventListener('click', function (e) {
 
 $graphButton.addEventListener('click', function (e) {
   showPage($graphDiv, $homeDiv);
+  setHeaderID();
   const $nJHeader = document.createElement('li');
   const $nJHeaderH2 = document.createElement('h2');
   $nJHeaderH2.textContent = 'MoodGraph';
@@ -191,6 +202,8 @@ $graphButton.addEventListener('click', function (e) {
   $headerUl.appendChild($nJHeader);
   $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
   $headerLogo.setAttribute('class', 'header-logo work-sans');
+  // eslint-disable-next-line no-undef
+  sendGraphAPI(entries);
 });
 /* $draftButton.addEventListener('click', function (e) {
   $homeDiv.setAttribute('class', 'hidden container');
@@ -236,22 +249,32 @@ $nJContButton.addEventListener('click', function (e) {
 });
 
 $headerLogo.addEventListener('click', function (e) {
-// eslint-disable-next-line no-undef
-  const newEntry = new Entry();
-  newEntry.title = date;
-  newEntry.formattedDate = formattedDate;
-  for (const item of $fiveThings) {
-    const txt = item.value;
-    newEntry.fiveThings.push(txt);
-  }
+  const hL = document.getElementById('header-logo');
+  if ((hL !== null) && ($graphDiv.attributes.class.value === 'hidden')) {
   // eslint-disable-next-line no-undef
-  drafts.push(newEntry);
-  $5thingsForm.reset();
-  removePageID();
-  for (const page of $pgList) {
-    showPage($homeDiv, page);
+    const newEntry = new Entry();
+    newEntry.title = date;
+    newEntry.formattedDate = formattedDate;
+    for (const item of $fiveThings) {
+      const txt = item.value;
+      newEntry.fiveThings.push(txt);
+    }
+    // eslint-disable-next-line no-undef
+    drafts.push(newEntry);
+    $5thingsForm.reset();
+    removePageID();
+    removeHeaderID();
+    for (const page of $pgList) {
+      showPage($homeDiv, page);
+    }
+    window.alert('Your journal entry was saved as a draft!');
+  } else {
+    for (const pg of $pgList) {
+      removeHeaderID();
+      removePageID();
+      showPage($homeDiv, pg);
+    }
   }
-  window.alert('Your journal entry was saved as a draft!');
 });
 
 $doneButton.addEventListener('click', function (e) {
@@ -261,6 +284,7 @@ $doneButton.addEventListener('click', function (e) {
     currentObj.text = $NJTextCont.value;
     // eslint-disable-next-line no-undef
     sendMoodReq(currentObj.text);
+    removeHeaderID();
   } else {
     window.alert("It looks like you forgot to write something. Tell us what's on your mind! (or save it as a draft for later)");
   }
@@ -270,6 +294,8 @@ window.addEventListener('click', function (e) {
   for (const but of $homeButton) {
     if (e.target === but) {
       for (const pg of $pgList) {
+        removeHeaderID();
+        removePageID();
         showPage($homeDiv, pg);
       }
       break;
