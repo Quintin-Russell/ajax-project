@@ -136,7 +136,7 @@ function sendGraphAPI(entries) {
   );
   for (const ent of entries) {
     const coords = {};
-    coords.x = ent.formattedDate;
+    coords.x = ent.title;
     coords.y = ent.scoreNum;
     let datas = moodChart.data.datasets[0];
     datas = datas.data;
