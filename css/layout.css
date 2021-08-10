@@ -86,3 +86,15 @@
   justify-content: space-between;
   text-align: center;
 }
+
+.lrg-button-cont {
+  width: 70%;
+}
+
+.chart-cont {
+  width: 100%;
+}
+
+.chart-button {
+  width: 50%;
+}

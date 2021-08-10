@@ -1,4 +1,24 @@
 const entries = [];
+// const entries = [
+//   {
+//     fiveThings: ['\n        ', '\n        ', '\n        ', '\n        ', '\n        '],
+//     formattedDate: 'Aug 9, 2021',
+//     response: { status: {}, model: 'general_en', score_tag: 'N', agreement: 'AGREEMENT', subjectivity: 'SUBJECTIVE' },
+//     score: 'N',
+//     scoreNum: -1,
+//     text: 'I do not like it when he does that',
+//     title: Mon Aug 09 2021 18: 32: 00 GMT - 0700(Pacific Daylight Time)
+//   },
+//   {
+//     fiveThings: (5)['\n        ', '\n        ', '\n        ', '\n        ', '\n        '],
+//     formattedDate: 'Aug 9, 2021',
+//     response: { status: {}, model: 'general_en', score_tag: 'P+', agreement: 'AGREEMENT', subjectivity: 'SUBJECTIVE' },
+//     score: 'P+',
+//     scoreNum: 2,
+//     text: 'i love you',
+//     title: Mon Aug 09 2021 18: 31: 46 GMT - 0700(Pacific Daylight Time)
+//   }
+// ];
 const drafts = [];
 // eslint-disable-next-line no-unused-vars
 const quotes = {

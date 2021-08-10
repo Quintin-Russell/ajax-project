@@ -127,7 +127,15 @@ function sendGraphAPI(entries) {
     options: {
       scales: {
         x: {
-          type: 'linear',
+          type: 'time',
+          time: {
+            displayFormats: {
+              unit: 'day'
+              // month: 'MMM',
+              // day: 'DD',
+              // year: 'YY'
+            }
+          },
           position: 'bottom'
         }
       }
@@ -136,7 +144,7 @@ function sendGraphAPI(entries) {
   );
   for (const ent of entries) {
     const coords = {};
-    coords.x = ent.title;
+    coords.x = ent.title.getTime();
     coords.y = ent.scoreNum;
     let datas = moodChart.data.datasets[0];
     datas = datas.data;
