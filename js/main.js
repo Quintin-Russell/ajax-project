@@ -77,9 +77,6 @@ function getScoreNum(score) {
   } else if (score === 'N+') {
     // eslint-disable-next-line no-undef
     currentObj.scoreNum = -2;
-  } else {
-    // eslint-disable-next-line no-undef
-    currentObj.scoreNum = null;
   }
 }
 
@@ -125,32 +122,61 @@ function sendGraphAPI(entries) {
       }]
     },
     options: {
+      parsing: {
+        xAxisKey: 'x',
+        yAxisKey: 'y'
+      },
       scales: {
         x: {
           type: 'time',
+          // ticks: {
+          //   callback: function (milisec) {
+          //     return new Date(milisec);
+          //   }
+          // },
           time: {
             displayFormats: {
-              unit: 'day'
-              // month: 'MMM',
-              // day: 'DD',
-              // year: 'YY'
+              unit: 'millisecond',
+              month: 'MMM',
+              day: 'DD,',
+              year: 'YYYY'
             }
           },
+          parser: false,
           position: 'bottom'
         }
       }
     }
-  }
-  );
+  });
   for (const ent of entries) {
+    if (typeof (ent.title) === 'string') {
+      const d = new Date(ent.title);
+      ent.title = d;
+    }
+    let month = ent.title.getMonth();
+    month = month++;
+    if (month < 10) {
+      month = month.toString();
+      month = '0' + month;
+    } else {
+      month.toString();
+    }
+    let day = ent.title.getDate();
+    if (day < 10) {
+      day = day.toString();
+      day = '0' + day;
+    } else {
+      day.toString();
+    }
+    let year = ent.title.getFullYear();
+    year = year.toString();
     const coords = {};
-    coords.x = ent.title.getTime();
+    coords.x = year + '-' + month + '-' + day;
     coords.y = ent.scoreNum;
     let datas = moodChart.data.datasets[0];
     datas = datas.data;
     datas.push(coords);
   }
-  // $graphCanv.appendChild(moodChart);
 }
 
 function sendMoodReq(text) {

@@ -1,25 +1,7 @@
-const entries = [];
-// const entries = [
-//   {
-//     fiveThings: ['\n        ', '\n        ', '\n        ', '\n        ', '\n        '],
-//     formattedDate: 'Aug 9, 2021',
-//     response: { status: {}, model: 'general_en', score_tag: 'N', agreement: 'AGREEMENT', subjectivity: 'SUBJECTIVE' },
-//     score: 'N',
-//     scoreNum: -1,
-//     text: 'I do not like it when he does that',
-//     title: Mon Aug 09 2021 18: 32: 00 GMT - 0700(Pacific Daylight Time)
-//   },
-//   {
-//     fiveThings: (5)['\n        ', '\n        ', '\n        ', '\n        ', '\n        '],
-//     formattedDate: 'Aug 9, 2021',
-//     response: { status: {}, model: 'general_en', score_tag: 'P+', agreement: 'AGREEMENT', subjectivity: 'SUBJECTIVE' },
-//     score: 'P+',
-//     scoreNum: 2,
-//     text: 'i love you',
-//     title: Mon Aug 09 2021 18: 31: 46 GMT - 0700(Pacific Daylight Time)
-//   }
-// ];
-const drafts = [];
+/* exported data */
+
+let entries = [];
+let drafts = [];
 // eslint-disable-next-line no-unused-vars
 const quotes = {
   'P+': ['Begin at once to live, and count each separate day as a separate life.—Seneca', 'It looks like you have some momentum today! Keep it up! Do something today that your future self will thank you for!', "Spread the positivity you have: tell someone they look nice today, talk to that person you catch eyes with at the grocery store, help someone carry something heavy... Be a part of someone else's day!"],
@@ -43,11 +25,11 @@ function Entry() {
 
 var previousEntries = localStorage.getItem('entries');
 // eslint-disable-next-line no-unused-vars
-previousEntries = JSON.parse(previousEntries);
+entries = JSON.parse(previousEntries);
 
 var previousDrafts = localStorage.getItem('drafts');
 // eslint-disable-next-line no-unused-vars
-previousDrafts = JSON.parse(previousDrafts);
+drafts = JSON.parse(previousDrafts);
 
 window.addEventListener('beforeunload', function (event) {
   const entriesJSON = JSON.stringify(entries);
