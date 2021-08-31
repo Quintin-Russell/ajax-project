@@ -1,3 +1,5 @@
+// // const { utils } = require('stylelint');
+
 // const $newJournalButton = document.querySelector('[button = "new-journal"]');
 // const $draftButton = document.querySelector('[button = "drafts"]');
 // const $graphButton = document.querySelector('[button = "view-moodgraph"]');
@@ -28,6 +30,7 @@
 // const $draftDiv = document.querySelector('[data-view = "draft"]');
 // const $draftUl = document.querySelector('.draft-ul');
 // const $pgList = [$gratefulDiv, $NJDiv, $modalDiv, $graphDiv, $draftDiv];
+// const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 // let date;
 // let formattedDate;
 
@@ -45,7 +48,6 @@
 // }
 
 // function getDate() {
-//   const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 //   date = new Date();
 //   let month = date.getMonth();
 //   month = monthArr[month];
@@ -118,10 +120,13 @@
 //   const moodChart = new Chart($graphCanv, {
 //     type: 'scatter',
 //     data: {
-//       datasets: [{
-//         label: 'MoodGraph',
-//         data: []
-//       }]
+//       labels: monthArr,
+//       datasets: [
+//         {
+//           label: 'MoodGraph',
+//           data: []
+//         }
+//       ]
 //     },
 //     options: {
 //       parsing: {
@@ -131,11 +136,11 @@
 //       scales: {
 //         x: {
 //           type: 'time',
-//           // ticks: {
-//           //   callback: function (milisec) {
-//           //     return new Date(milisec);
-//           //   }
-//           // },
+//           ticks: {
+//             callback: function (milisec) {
+//               return new Date(milisec);
+//             }
+//           },
 //           time: {
 //             displayFormats: {
 //               unit: 'millisecond',
@@ -208,11 +213,48 @@
 //     .catch(error => window.alert("Don't know what happened there, but something went wrong. Please try to submit again"));
 // }
 
+// function makeDraftBox(draft, draftNum) {
+//   const $draftImgDiv = document.createElement('div');
+//   const $draftImg = document.createElement('img');
+//   $draftImg.setAttribute('class', 'item-img');
+//   $draftImg.setAttribute('src', 'images/ajax-logo.jpg');
+//   $draftImg.setAttribute('alt', 'ajax-logo');
+//   $draftImgDiv.appendChild($draftImg);
+
+//   const $draftDivH2 = document.createElement('div');
+//   const $draftH2 = document.createElement('h2');
+//   const $draftSpan = document.createElement('span');
+//   $draftDivH2.setAttribute('class', 'container');
+//   $draftH2.setAttribute('class', 'header-logo work-sans');
+//   const draftDataId = draftNum;
+//   $draftSpan.setAttribute('data', draftDataId);
+//   $draftH2.textContent = 'Date: ';
+//   $draftH2.appendChild($draftSpan);
+//   $draftDivH2.appendChild($draftH2);
+
+//   const $draftContDiv = document.createElement('div');
+//   $draftContDiv.setAttribute('class', 'row div-background');
+//   $draftContDiv.appendChild($draftImgDiv);
+//   $draftContDiv.appendChild($draftDivH2);
+
+//   const $draftLi = document.createElement('li');
+//   $draftLi.setAttribute('class', 'container');
+//   const draftId = `draft${drafts.nextDraftNum}`;
+//   $draftLi.setAttribute('data', draftId);
+//   $draftLi.appendChild($draftContDiv);
+// }
+
 // function compileDraftBoxes() {
-//   if (drafts.rendered === null) {
+
+//   if (drafts.drafts.length > 0) {
 //     // check to see if drafts.drafts.length > 0 --> if yes: for (dr of drafts):
 //     // create all elms --> populate span data= date+id w/ dr.formatted date
+//     for (const dr of drafts.drafts) {
+//       const
+//       makeDraftBox(dr, drafts.nextDraftNum);
 
+//       drafts.nextDraftNum++
+//     }
 //     // if no: create elms --> span="There are no drafts"
 //   } else {
 //     // check to see
@@ -268,7 +310,7 @@
 // });
 
 // // gratefulDiv eventListeners
-// $gratefulDiv.addEventListener('click', function (e) {
+// window.addEventListener('click', function (e) {
 //   for (const sm of $saveDraftButton) {
 //     if (e.target === sm) {
 //       e.preventDefault();
@@ -280,9 +322,15 @@
 //         newEntry.fiveThings.push(txt);
 //         newEntry.formattedDate = formattedDate;
 //       }
+//       if ($journalTextForm.value !== undefined) {
+//         newEntry.text = $journalTextForm.value;
+//         $journalTextForm.reset();
+//       }
 //       // eslint-disable-next-line no-undef
 //       drafts.drafts.push(newEntry);
-//       showPage($homeDiv, $gratefulDiv);
+//       for (const pg of $pgList) {
+//         showPage($homeDiv, pg);
+//       }
 //       $5thingsForm.reset();
 //       break;
 //     }
@@ -316,7 +364,7 @@
 //       newEntry.fiveThings.push(txt);
 //     }
 //     // eslint-disable-next-line no-undef
-//     drafts.drafts.push(newEntry);
+//     drafts[drafts].push(newEntry);
 //     $5thingsForm.reset();
 //     removePageID();
 //     removeHeaderID();

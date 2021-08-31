@@ -1,7 +1,11 @@
 /* exported data */
 
 let entries = [];
-let drafts = [];
+let drafts = {
+  drafts: [],
+  renderedTitles: [],
+  nextDraftNum: 0
+};
 // eslint-disable-next-line no-unused-vars
 const quotes = {
   'P+': ['Begin at once to live, and count each separate day as a separate life.—Seneca', 'It looks like you have some momentum today! Keep it up! Do something today that your future self will thank you for!', "Spread the positivity you have: tell someone they look nice today, talk to that person you catch eyes with at the grocery store, help someone carry something heavy... Be a part of someone else's day!"],
@@ -21,6 +25,7 @@ function Entry() {
   this.response = undefined;
   this.score = undefined;
   this.scoreNum = undefined;
+  this.draftNum = undefined;
 }
 
 var previousEntries = localStorage.getItem('entries');
