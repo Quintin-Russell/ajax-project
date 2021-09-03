@@ -28,7 +28,7 @@ const $homeButton = document.querySelectorAll('[button="home"]');
 const $graphDiv = document.querySelector('[data-view ="graph"]');
 const $graphCanv = document.querySelector('#myChart');
 const $draftDiv = document.querySelector('[data-view = "draft"]');
-// const $draftUl = document.querySelector('.draft-ul');
+const $draftUl = document.querySelector('.draft-ul');
 const $pgList = [$gratefulDiv, $NJDiv, $modalDiv, $graphDiv, $draftDiv];
 const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 let date;
@@ -130,7 +130,9 @@ function sendGraphAPI(entries) {
       datasets: [{
         label: 'Daily MoodScore',
         data: ylabels,
-        fill: false
+        fill: false,
+        backgroundColor: '#292929',
+        borderColor: '#B5CDA3'
       }]
     },
     options: {
@@ -141,7 +143,7 @@ function sendGraphAPI(entries) {
             suggestedMax: 2,
             stepSize: 1,
             callback: tickVal => {
-              const vals = ['Very Negative', 'Negative', 'Neutral', 'Positive', 'Very Positive'];
+              const vals = ['N+', 'N', 'Neu', 'P', 'P+'];
               if (tickVal === -2) {
                 return vals[0];
               } else if (tickVal === -1) {
@@ -217,25 +219,28 @@ function makeDraftBox(draft, draftNum) {
   const draftId = `draft${drafts.nextDraftNum}`;
   $draftLi.setAttribute('data', draftId);
   $draftLi.appendChild($draftContDiv);
+
+  return $draftLi
 }
 
-// function compileDraftBoxes() {
+function compileDraftBoxes() {
+  console.log(`drafts.drafts: ${drafts.drafts}`);
+  if (drafts.drafts.length > 0) {
+    // check to see if drafts.drafts.length > 0 --> if yes: for (dr of drafts):
+    // create all elms --> populate span data= date+id w/ dr.formatted date
+    for (const dr of drafts.drafts) {
+      const $draftLi = makeDraftBox(dr, drafts.nextDraftNum);
+      $draftUl.appendChild($draftLi);
+      drafts.nextDraftNum++
+    }
+    // if no: create elms --> span="There are no drafts"
+  // } else {
+  //   const $noDraftP = document.createElement('p'),
+  //   $noDraft
 
-//   if (drafts.drafts.length > 0) {
-//     // check to see if drafts.drafts.length > 0 --> if yes: for (dr of drafts):
-//     // create all elms --> populate span data= date+id w/ dr.formatted date
-//     for (const dr of drafts.drafts) {
-//       const
-//       makeDraftBox(dr, drafts.nextDraftNum);
-
-//       drafts.nextDraftNum++
-//     }
-//     // if no: create elms --> span="There are no drafts"
-//   } else {
-//     // check to see
-
-//   }
-// }
+  // }
+}
+}
 
 // home page eventListeners
 $newJournalButton.addEventListener('click', function (e) {
@@ -282,6 +287,7 @@ $draftButton.addEventListener('click', function (e) {
   $headerUl.appendChild($draftHeader);
   $draftHeaderH2.setAttribute('class', 'new-journal-header work-sans');
   $headerLogo.setAttribute('class', 'header-logo work-sans');
+  compileDraftBoxes();
 });
 
 // gratefulDiv eventListeners
@@ -301,6 +307,8 @@ window.addEventListener('click', function (e) {
         newEntry.text = $journalTextForm.value;
         $journalTextForm.reset();
       }
+      console.log(`newEntry: ${newEntry}`);
+      console.log(`drafts.drafts: ${drafts[drafts]}`);
       // eslint-disable-next-line no-undef
       drafts.drafts.push(newEntry);
       for (const pg of $pgList) {

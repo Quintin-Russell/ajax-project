@@ -1,7 +1,8 @@
 /* exported data */
-
-let entries = [];
-let drafts = {
+// eslint-disable-next-line no-unused-vars
+const entries = [];
+// eslint-disable-next-line no-unused-vars
+const drafts = {
   drafts: [],
   renderedTitles: [],
   nextDraftNum: 0
@@ -28,17 +29,17 @@ function Entry() {
   this.draftNum = undefined;
 }
 
-var previousEntries = localStorage.getItem('entries');
-// eslint-disable-next-line no-unused-vars
-entries = JSON.parse(previousEntries);
+// var previousEntries = localStorage.getItem('entries');
+// // eslint-disable-next-line no-unused-vars
+// entries = JSON.parse(previousEntries);
 
-var previousDrafts = localStorage.getItem('drafts');
-// eslint-disable-next-line no-unused-vars
-drafts = JSON.parse(previousDrafts);
+// var previousDrafts = localStorage.getItem('drafts');
+// // eslint-disable-next-line no-unused-vars
+// drafts = JSON.parse(previousDrafts);
 
-window.addEventListener('beforeunload', function (event) {
-  const entriesJSON = JSON.stringify(entries);
-  const draftsJSON = JSON.stringify(drafts);
-  localStorage.setItem('entries', entriesJSON);
-  localStorage.setItem('drafts', draftsJSON);
-});
+// window.addEventListener('beforeunload', function (event) {
+//   const entriesJSON = JSON.stringify(entries);
+//   const draftsJSON = JSON.stringify(drafts);
+//   localStorage.setItem('entries', entriesJSON);
+//   localStorage.setItem('drafts', draftsJSON);
+// });
