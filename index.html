@@ -14,11 +14,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <body>
   <header>
       <ul class="header-list">
-        <li id="header-logo">
+        <li data="header-logo">
             <h2>MoodTrace</h2>
         </li>
       </ul>
@@ -32,9 +33,9 @@
         <h2 class="work-sans">Welcome Back!</h2>
       </div>
       <div class="padding div-background container">
-        <button id="new-journal" class="lrg-button">Start a New Journal Entry</button>
-        <button button="view-graph" class="lrg-button">View My MoodGraph</button>
-        <button id="drafts" class="lrg-button">Drafts</button>
+        <button button="new-journal" class="lrg-button">Start a New Journal Entry</button>
+        <button button="view-moodgraph" class="lrg-button">View My MoodGraph</button>
+        <button button="drafts" class="lrg-button">Drafts</button>
       </div>
     </div>
     <div data-view="grateful" class="hidden">
@@ -80,7 +81,7 @@
   </form>
 </div>
     </div>
-    <div data-view="new-journal" class="hidden container">
+    <div data-view="new-journal" class="hidden">
       <!-- header-->
       <div class="row div-background margin2rem">
         <div>
@@ -139,6 +140,34 @@ Ideas:
         </div>
       </div>
 
+    </div>
+    <div data-view="graph" class="hidden">
+      <div class="chart-cont">
+        <canvas id="myChart"></canvas>
+      </div>
+      <div class="lrg-button-cont container">
+        <button button="home" class="chart-button lrg-button">Return To Home Screen</button>
+     </div>
+    </div>
+    <div data-view="draft" class="hidden">
+      <div class="container">
+        <!--Build out of entry boxes-->
+        <ul data="draft-ul" class="container">
+          <li data="draft3" class="container">
+            <div class="row div-background margin2rem">
+              <div>
+                <img class="item-img" src="images/ajax-logo.jpg" alt="ajax-logo">
+              </div>
+              <div class="container">
+                <h2 class="header-logo work-sans">Date: <span data="date3">01/01/00</span></h2>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+
+        <button button="home" class="lrg-button">Return To Home Screen</button>
+      </div>
     </div>
   </main>
   <script src="js/data.js"></script>

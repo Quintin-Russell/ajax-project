@@ -65,6 +65,10 @@
   font-size: 1rem;
 }
 
+.draft-ul {
+  list-style-type: none;
+}
+
 @media screen and (max-width: 405px) {
   .work-sans {
     font-size: 1em;

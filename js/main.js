@@ -1,12 +1,14 @@
-const $newJournalButton = document.querySelector('#new-journal');
-// const $draftButton = document.querySelector('#drafts');
-// const $graphButton = document.querySelectorAll('[button = "view-graph"]');
+/*eslint-disable */
+
+const $newJournalButton = document.querySelector('[button = "new-journal"]');
+const $draftButton = document.querySelector('[button = "drafts"]');
+const $graphButton = document.querySelector('[button = "view-moodgraph"]');
 const $homeDiv = document.querySelector('[data-view = "home-screen"]');
 const $gratefulDiv = document.querySelector('[data-view = "grateful"]');
 const $5thingsForm = document.getElementById('five-things');
 const $journalTextForm = document.querySelector('#journal-cont');
 const $headerUl = document.querySelector('.header-list');
-const $headerLogo = document.querySelector('#header-logo');
+const $headerLogo = document.querySelector('[data = "header-logo"]');
 const $dateH2 = document.querySelectorAll('[data="date"]');
 const $saveDraftButton = document.querySelectorAll('[button = "save-draft"]');
 const $nJContButton = document.querySelector('[button = "new-journal-cont"]');
@@ -22,8 +24,13 @@ const $doneButton = document.querySelector('[button="done"]');
 const $modalDiv = document.querySelector('[data-view="done-modal"]');
 const $scoreH1 = document.querySelector('[data="modal-score"]');
 const $modalQuoteP = document.querySelector('[data="modal-quote"]');
-const $homeButton = document.querySelector('[button="home"]');
-const $pgList = [$gratefulDiv, $NJDiv, $modalDiv];
+const $homeButton = document.querySelectorAll('[button="home"]');
+const $graphDiv = document.querySelector('[data-view ="graph"]');
+const $graphCanv = document.querySelector('#myChart');
+const $draftDiv = document.querySelector('[data-view = "draft"]');
+// const $draftUl = document.querySelector('.draft-ul');
+const $pgList = [$gratefulDiv, $NJDiv, $modalDiv, $graphDiv, $draftDiv];
+const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 let date;
 let formattedDate;
 
@@ -32,8 +39,15 @@ function showPage(show, hide) {
   hide.setAttribute('class', 'hidden');
 }
 
+function setHeaderID() {
+  $headerLogo.setAttribute('id', 'header-logo');
+}
+
+function removeHeaderID() {
+  $headerLogo.setAttribute('id', null);
+}
+
 function getDate() {
-  const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   date = new Date();
   let month = date.getMonth();
   month = monthArr[month];
@@ -45,7 +59,7 @@ function getDate() {
 }
 
 function removePageID() {
-  if (($headerUl.childNodes) > 3) {
+  if (($headerUl.childNodes.length) > 3) {
     const $pgID = document.querySelector('[data = "pg-ID"]');
     $headerUl.removeChild($pgID);
   }
@@ -67,9 +81,6 @@ function getScoreNum(score) {
   } else if (score === 'N+') {
     // eslint-disable-next-line no-undef
     currentObj.scoreNum = -2;
-  } else {
-    // eslint-disable-next-line no-undef
-    currentObj.scoreNum = null;
   }
 }
 
@@ -99,7 +110,55 @@ function afterAPI() {
   $scoreH1.textContent = modalScore;
   $modalQuoteP.textContent = quote;
   removePageID();
+  // eslint-disable-next-line no-undef
+  entries.push(currentObj);
   showPage($modalDiv, $NJDiv);
+}
+// eslint-disable-next-line no-unused-vars
+function sendGraphAPI(entries) {
+  const xlabels = [];
+  const ylabels = [];
+  for (const ent of entries) {
+    xlabels.push(ent.formattedDate);
+    ylabels.push(ent.scoreNum);
+  }
+  // eslint-disable-next-line no-unused-vars
+  const scatterChart = new Chart($graphCanv, { // eslint-disable no-undef
+    type: 'line',
+    data: {
+      labels: xlabels,
+      datasets: [{
+        label: 'Daily MoodScore',
+        data: ylabels,
+        fill: false
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMin: -2,
+            suggestedMax: 2,
+            stepSize: 1,
+            callback: tickVal => {
+              const vals = ['Very Negative', 'Negative', 'Neutral', 'Positive', 'Very Positive'];
+              if (tickVal === -2) {
+                return vals[0];
+              } else if (tickVal === -1) {
+                return vals[1];
+              } else if (tickVal === 0) {
+                return vals[2];
+              } else if (tickVal === 1) {
+                return vals[3];
+              } else {
+                return vals[4];
+              }
+            }
+          }
+        }]
+      }
+    }
+  });
 }
 
 function sendMoodReq(text) {
@@ -122,14 +181,66 @@ function sendMoodReq(text) {
       // eslint-disable-next-line no-undef
       currentObj.score = currentObj.response.score_tag;
       afterAPI();
+      // eslint-disable-next-line no-undef
+      currentObj = null;
     })
     // eslint-disable-next-line node/handle-callback-err
     .catch(error => window.alert("Don't know what happened there, but something went wrong. Please try to submit again"));
 }
 
+function makeDraftBox(draft, draftNum) {
+  const $draftImgDiv = document.createElement('div');
+  const $draftImg = document.createElement('img');
+  $draftImg.setAttribute('class', 'item-img');
+  $draftImg.setAttribute('src', 'images/ajax-logo.jpg');
+  $draftImg.setAttribute('alt', 'ajax-logo');
+  $draftImgDiv.appendChild($draftImg);
+
+  const $draftDivH2 = document.createElement('div');
+  const $draftH2 = document.createElement('h2');
+  const $draftSpan = document.createElement('span');
+  $draftDivH2.setAttribute('class', 'container');
+  $draftH2.setAttribute('class', 'header-logo work-sans');
+  const draftDataId = draftNum;
+  $draftSpan.setAttribute('data', draftDataId);
+  $draftH2.textContent = 'Date: ';
+  $draftH2.appendChild($draftSpan);
+  $draftDivH2.appendChild($draftH2);
+
+  const $draftContDiv = document.createElement('div');
+  $draftContDiv.setAttribute('class', 'row div-background');
+  $draftContDiv.appendChild($draftImgDiv);
+  $draftContDiv.appendChild($draftDivH2);
+
+  const $draftLi = document.createElement('li');
+  $draftLi.setAttribute('class', 'container');
+  const draftId = `draft${drafts.nextDraftNum}`;
+  $draftLi.setAttribute('data', draftId);
+  $draftLi.appendChild($draftContDiv);
+}
+
+// function compileDraftBoxes() {
+
+//   if (drafts.drafts.length > 0) {
+//     // check to see if drafts.drafts.length > 0 --> if yes: for (dr of drafts):
+//     // create all elms --> populate span data= date+id w/ dr.formatted date
+//     for (const dr of drafts.drafts) {
+//       const
+//       makeDraftBox(dr, drafts.nextDraftNum);
+
+//       drafts.nextDraftNum++
+//     }
+//     // if no: create elms --> span="There are no drafts"
+//   } else {
+//     // check to see
+
+//   }
+// }
+
 // home page eventListeners
 $newJournalButton.addEventListener('click', function (e) {
   showPage($gratefulDiv, $homeDiv);
+  setHeaderID();
   const $nJHeader = document.createElement('li');
   const $nJHeaderH2 = document.createElement('h2');
   getDate();
@@ -144,18 +255,37 @@ $newJournalButton.addEventListener('click', function (e) {
     item.textContent = 'Date: ' + formattedDate;
   }
 });
-/* $draftButton.addEventListener('click', function (e) {
-  $homeDiv.setAttribute('class', 'hidden container');
-  $draftDiv.setAttribute('class', 'flex container');
-});
 
 $graphButton.addEventListener('click', function (e) {
-  $homeDiv.setAttribute('class', 'hidden container');
-  $graphDiv.setAttribute('class', 'flex container');
+  showPage($graphDiv, $homeDiv);
+  setHeaderID();
+  const $nJHeader = document.createElement('li');
+  const $nJHeaderH2 = document.createElement('h2');
+  $nJHeaderH2.textContent = 'MoodGraph';
+  $nJHeader.setAttribute('data', 'pg-ID');
+  $nJHeader.appendChild($nJHeaderH2);
+  $headerUl.appendChild($nJHeader);
+  $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
+  $headerLogo.setAttribute('class', 'header-logo work-sans');
+  // eslint-disable-next-line no-undef
+  sendGraphAPI(entries);
 });
-*/
+
+$draftButton.addEventListener('click', function (e) {
+  showPage($draftDiv, $homeDiv);
+  setHeaderID();
+  const $draftHeader = document.createElement('li');
+  const $draftHeaderH2 = document.createElement('h2');
+  $draftHeaderH2.textContent = 'Drafts';
+  $draftHeader.setAttribute('data', 'pg-ID');
+  $draftHeader.appendChild($draftHeaderH2);
+  $headerUl.appendChild($draftHeader);
+  $draftHeaderH2.setAttribute('class', 'new-journal-header work-sans');
+  $headerLogo.setAttribute('class', 'header-logo work-sans');
+});
+
 // gratefulDiv eventListeners
-$gratefulDiv.addEventListener('click', function (e) {
+window.addEventListener('click', function (e) {
   for (const sm of $saveDraftButton) {
     if (e.target === sm) {
       e.preventDefault();
@@ -167,9 +297,15 @@ $gratefulDiv.addEventListener('click', function (e) {
         newEntry.fiveThings.push(txt);
         newEntry.formattedDate = formattedDate;
       }
+      if ($journalTextForm.value !== undefined) {
+        newEntry.text = $journalTextForm.value;
+        $journalTextForm.reset();
+      }
       // eslint-disable-next-line no-undef
-      drafts.push(newEntry);
-      showPage($homeDiv, $gratefulDiv);
+      drafts.drafts.push(newEntry);
+      for (const pg of $pgList) {
+        showPage($homeDiv, pg);
+      }
       $5thingsForm.reset();
       break;
     }
@@ -192,22 +328,32 @@ $nJContButton.addEventListener('click', function (e) {
 });
 
 $headerLogo.addEventListener('click', function (e) {
-// eslint-disable-next-line no-undef
-  const newEntry = new Entry();
-  newEntry.title = date;
-  newEntry.formattedDate = formattedDate;
-  for (const item of $fiveThings) {
-    const txt = item.value;
-    newEntry.fiveThings.push(txt);
-  }
+  const hL = document.getElementById('header-logo');
+  if ((hL !== null) && ($graphDiv.attributes.class.value === 'hidden') && ($draftDiv.attributes.class.value === 'hidden')) {
   // eslint-disable-next-line no-undef
-  drafts.push(newEntry);
-  $5thingsForm.reset();
-  removePageID();
-  for (const page of $pgList) {
-    showPage($homeDiv, page);
+    const newEntry = new Entry();
+    newEntry.title = date;
+    newEntry.formattedDate = formattedDate;
+    for (const item of $fiveThings) {
+      const txt = item.value;
+      newEntry.fiveThings.push(txt);
+    }
+    // eslint-disable-next-line no-undef
+    drafts[drafts].push(newEntry);
+    $5thingsForm.reset();
+    removePageID();
+    removeHeaderID();
+    for (const page of $pgList) {
+      showPage($homeDiv, page);
+    }
+    window.alert('Your journal entry was saved as a draft!');
+  } else {
+    for (const pg of $pgList) {
+      removeHeaderID();
+      removePageID();
+      showPage($homeDiv, pg);
+    }
   }
-  window.alert('Your journal entry was saved as a draft!');
 });
 
 $doneButton.addEventListener('click', function (e) {
@@ -217,11 +363,21 @@ $doneButton.addEventListener('click', function (e) {
     currentObj.text = $NJTextCont.value;
     // eslint-disable-next-line no-undef
     sendMoodReq(currentObj.text);
+    removeHeaderID();
   } else {
     window.alert("It looks like you forgot to write something. Tell us what's on your mind! (or save it as a draft for later)");
   }
 });
 
-$homeButton.addEventListener('click', function (e) {
-  showPage($homeDiv, $modalDiv);
+window.addEventListener('click', function (e) {
+  for (const but of $homeButton) {
+    if (e.target === but) {
+      for (const pg of $pgList) {
+        removeHeaderID();
+        removePageID();
+        showPage($homeDiv, pg);
+      }
+      break;
+    }
+  }
 });
