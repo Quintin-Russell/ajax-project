@@ -28,9 +28,10 @@ const $homeButton = document.querySelectorAll('[button="home"]');
 const $graphDiv = document.querySelector('[data-view ="graph"]');
 const $graphCanv = document.querySelector('#myChart');
 const $draftDiv = document.querySelector('[data-view = "draft"]');
-const $draftUl = document.querySelector('.draft-ul');
+const $draftUl = document.querySelector('[data="draft-ul"]');
 const $pgList = [$gratefulDiv, $NJDiv, $modalDiv, $graphDiv, $draftDiv];
 const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+let currentObj = null;
 let date;
 let formattedDate;
 
@@ -112,6 +113,7 @@ function afterAPI() {
   removePageID();
   // eslint-disable-next-line no-undef
   entries.push(currentObj);
+  currentObj = null;
   showPage($modalDiv, $NJDiv);
 }
 // eslint-disable-next-line no-unused-vars
@@ -187,60 +189,167 @@ function sendMoodReq(text) {
       currentObj = null;
     })
     // eslint-disable-next-line node/handle-callback-err
-    .catch(error => window.alert("Don't know what happened there, but something went wrong. Please try to submit again"));
+    .catch(error =>
+      window.alert("We don't know what happened there, but something went wrong. Please try to submit again"));
 }
 
-function makeDraftBox(draft, draftNum) {
+function makeDraftBox(draft) {
   const $draftImgDiv = document.createElement('div');
   const $draftImg = document.createElement('img');
   $draftImg.setAttribute('class', 'item-img');
   $draftImg.setAttribute('src', 'images/ajax-logo.jpg');
   $draftImg.setAttribute('alt', 'ajax-logo');
   $draftImgDiv.appendChild($draftImg);
-
   const $draftDivH2 = document.createElement('div');
   const $draftH2 = document.createElement('h2');
-  const $draftSpan = document.createElement('span');
   $draftDivH2.setAttribute('class', 'container');
   $draftH2.setAttribute('class', 'header-logo work-sans');
-  const draftDataId = draftNum;
-  $draftSpan.setAttribute('data', draftDataId);
-  $draftH2.textContent = 'Date: ';
-  $draftH2.appendChild($draftSpan);
+  $draftH2.textContent = `Date: ${draft.formattedDate}`;
   $draftDivH2.appendChild($draftH2);
+
+  const $draftOptionsDiv = document.createElement('div');
+  $draftOptionsDiv.setAttribute('class', 'row div-background small-margin')
+  const $draftIt = document.createElement('i');
+  $draftIt.setAttribute('class', 'fas fa-trash-alt');
+  $draftIt.setAttribute('data', draft.draftNum)
+  $draftIt.setAttribute('funct', 'delete')
+  const $draftIp = document.createElement('i');
+  $draftIp.setAttribute('class', 'fas fa-pen-fancy')
+  $draftIp.setAttribute('data', draft.draftNum)
+  $draftIp.setAttribute('funct', 'edit')
+  $draftOptionsDiv.appendChild($draftIt);
+  $draftOptionsDiv.appendChild($draftIp);
 
   const $draftContDiv = document.createElement('div');
   $draftContDiv.setAttribute('class', 'row div-background');
   $draftContDiv.appendChild($draftImgDiv);
   $draftContDiv.appendChild($draftDivH2);
 
+  const $draftFullContDiv = document.createElement('div');
+  $draftFullContDiv.setAttribute('class', 'container');
+  $draftFullContDiv.appendChild($draftContDiv);
+  $draftFullContDiv.appendChild($draftOptionsDiv);
+
   const $draftLi = document.createElement('li');
-  $draftLi.setAttribute('class', 'container');
-  const draftId = `draft${drafts.nextDraftNum}`;
+  $draftLi.setAttribute('class', 'container draft-li');
+  const draftId = draft.draftNum;
   $draftLi.setAttribute('data', draftId);
-  $draftLi.appendChild($draftContDiv);
+  $draftLi.appendChild($draftFullContDiv);
+
 
   return $draftLi
 }
 
 function compileDraftBoxes() {
-  console.log(`drafts.drafts: ${drafts.drafts}`);
   if (drafts.drafts.length > 0) {
-    // check to see if drafts.drafts.length > 0 --> if yes: for (dr of drafts):
-    // create all elms --> populate span data= date+id w/ dr.formatted date
+    const $noDraft = document.querySelector('[data="no-drafts"]');
+    if ($noDraft) {
+      $draftUl.removeChild($noDraft);
+    }
     for (const dr of drafts.drafts) {
-      const $draftLi = makeDraftBox(dr, drafts.nextDraftNum);
+      if (!drafts.renderedTitles.includes(dr.draftNum)) {
+      const $draftLi = makeDraftBox(dr, dr.draftNum);
+      drafts.renderedTitles.push(dr.draftNum)
       $draftUl.appendChild($draftLi);
-      drafts.nextDraftNum++
     }
     // if no: create elms --> span="There are no drafts"
-  // } else {
-  //   const $noDraftP = document.createElement('p'),
-  //   $noDraft
+    }
+  } else {
+    let $noDraftP = document.createElement('p');
+    $noDraftP.setAttribute('class', 'roboto');
+    $noDraftP.textContent = "There are no saved drafts yet";
+    const $noDraftLi = document.createElement('li');
+    $noDraftLi.setAttribute('data', 'no-drafts')
+    $noDraftLi.appendChild($noDraftP);
+    $draftUl.appendChild($noDraftLi)
 
-  // }
+  }
 }
+
+function editDraft(draft) {
+
 }
+
+function deleteDraft(draft) {
+
+}
+
+//global eventListeners
+window.addEventListener('click', function (e) {
+  for (const sm of $saveDraftButton) {
+    if (e.target === sm) {
+      e.preventDefault();
+      // eslint-disable-next-line no-undef
+      currentObj = new Entry();
+      currentObj.draftNum = drafts.nextDraftNum
+      drafts.nextDraftNum++
+      currentObj.title = date;
+      for (const item of $fiveThings) {
+        const txt = item.value;
+        currentObj.fiveThings.push(txt);
+        currentObj.formattedDate = formattedDate;
+      }
+      if ($journalTextForm.value !== undefined) {
+        currentObj.text = $journalTextForm.value;
+        $journalTextForm.reset();
+      }
+      // eslint-disable-next-line no-undef
+      drafts.drafts.push(currentObj);
+      currentObj = null;
+
+      for (const pg of $pgList) {
+        removeHeaderID();
+        removePageID();
+        showPage($homeDiv, pg);
+      }
+      $5thingsForm.reset();
+      break;
+    }
+  }
+});
+
+$headerLogo.addEventListener('click', function (e) {
+  const hL = document.getElementById('header-logo');
+  if ((hL !== null) && ($graphDiv.attributes.class.value === 'hidden') && ($draftDiv.attributes.class.value === 'hidden')) {
+    // eslint-disable-next-line no-undef
+    currentObj = new Entry();
+    currentObj.title = date;
+    currentObj.formattedDate = formattedDate;
+    for (const item of $fiveThings) {
+      const txt = item.value;
+      currentObj.fiveThings.push(txt);
+    }
+    // eslint-disable-next-line no-undef
+    drafts[drafts].push(currentObj);
+    $5thingsForm.reset();
+    removePageID();
+    removeHeaderID();
+    for (const page of $pgList) {
+      showPage($homeDiv, page);
+    }
+    window.alert('Your journal entry was saved as a draft!');
+    currentObj = null;
+  } else {
+    for (const pg of $pgList) {
+      removeHeaderID();
+      removePageID();
+      showPage($homeDiv, pg);
+    }
+  }
+});
+
+window.addEventListener('click', function (e) {
+  for (const but of $homeButton) {
+    if (e.target === but) {
+      for (const pg of $pgList) {
+        removeHeaderID();
+        removePageID();
+        showPage($homeDiv, pg);
+      }
+      break;
+    }
+  }
+});
 
 // home page eventListeners
 $newJournalButton.addEventListener('click', function (e) {
@@ -291,76 +400,16 @@ $draftButton.addEventListener('click', function (e) {
 });
 
 // gratefulDiv eventListeners
-window.addEventListener('click', function (e) {
-  for (const sm of $saveDraftButton) {
-    if (e.target === sm) {
-      e.preventDefault();
-      // eslint-disable-next-line no-undef
-      const newEntry = new Entry();
-      newEntry.title = date;
-      for (const item of $fiveThings) {
-        const txt = item.value;
-        newEntry.fiveThings.push(txt);
-        newEntry.formattedDate = formattedDate;
-      }
-      if ($journalTextForm.value !== undefined) {
-        newEntry.text = $journalTextForm.value;
-        $journalTextForm.reset();
-      }
-      console.log(`newEntry: ${newEntry}`);
-      console.log(`drafts.drafts: ${drafts[drafts]}`);
-      // eslint-disable-next-line no-undef
-      drafts.drafts.push(newEntry);
-      for (const pg of $pgList) {
-        showPage($homeDiv, pg);
-      }
-      $5thingsForm.reset();
-      break;
-    }
-  }
-});
-
 $nJContButton.addEventListener('click', function (e) {
   e.preventDefault();
   showPage($NJDiv, $gratefulDiv);
   // eslint-disable-next-line no-undef
-  const newEntry = new Entry();
-  newEntry.title = date;
-  newEntry.formattedDate = formattedDate;
+  currentObj = new Entry();
+  currentObj.title = date;
+  currentObj.formattedDate = formattedDate;
   for (const item of $fiveThings) {
     const txt = item.value;
-    newEntry.fiveThings.push(txt);
-  }
-  // eslint-disable-next-line no-undef
-  currentObj = newEntry;
-});
-
-$headerLogo.addEventListener('click', function (e) {
-  const hL = document.getElementById('header-logo');
-  if ((hL !== null) && ($graphDiv.attributes.class.value === 'hidden') && ($draftDiv.attributes.class.value === 'hidden')) {
-  // eslint-disable-next-line no-undef
-    const newEntry = new Entry();
-    newEntry.title = date;
-    newEntry.formattedDate = formattedDate;
-    for (const item of $fiveThings) {
-      const txt = item.value;
-      newEntry.fiveThings.push(txt);
-    }
-    // eslint-disable-next-line no-undef
-    drafts[drafts].push(newEntry);
-    $5thingsForm.reset();
-    removePageID();
-    removeHeaderID();
-    for (const page of $pgList) {
-      showPage($homeDiv, page);
-    }
-    window.alert('Your journal entry was saved as a draft!');
-  } else {
-    for (const pg of $pgList) {
-      removeHeaderID();
-      removePageID();
-      showPage($homeDiv, pg);
-    }
+    currentObj.fiveThings.push(txt);
   }
 });
 
@@ -377,15 +426,36 @@ $doneButton.addEventListener('click', function (e) {
   }
 });
 
-window.addEventListener('click', function (e) {
-  for (const but of $homeButton) {
-    if (e.target === but) {
-      for (const pg of $pgList) {
-        removeHeaderID();
-        removePageID();
-        showPage($homeDiv, pg);
+// draftDiv eventListeners
+$draftUl.addEventListener('mouseover', (e) => {
+// if elm.funct = edit/delete --> bubble that describes what it does "click here to __ the draft"
+})
+
+$draftUl.addEventListener('click', (e) => {
+  const tar = e.target;
+  if ((tar.getAttribute('data') !== null) && (tar.getAttribute('funct')!== null)){
+  const tarNum = tar.getAttribute('data')
+  const tarFunct = tar.getAttribute('funct')
+  if (tarFunct === 'edit') {
+    const dr = null;
+    for (const d of drafts.drafts){
+      if (d.draftNum === tarNum){
+        dr = d
+        break
       }
-      break;
     }
+    if (dr !== null){
+      editDraft(dr);
   }
-});
+  } else if (tarFunct === 'delete'){
+    const dr = null;
+    for (const d of drafts.drafts) {
+      if (d.draftNum === tarNum) {
+        dr = d
+        break
+      }
+      deleteDraft(dr)
+  }
+}
+  }
+})

@@ -1,8 +1,8 @@
 /* exported data */
 // eslint-disable-next-line no-unused-vars
-const entries = [];
+let entries = [];
 // eslint-disable-next-line no-unused-vars
-const drafts = {
+let drafts = {
   drafts: [],
   renderedTitles: [],
   nextDraftNum: 0
@@ -16,7 +16,6 @@ const quotes = {
   'N+': ['The key is to keep company only with people who uplift you, whose presence calls forth your best.―Epictetus...Call someone and tell them you love them, tell them about what you have going on in your life. Lean on those around you for support', '“You will never see me surrender, never see me cry, but you will often see me walk away. Turn around and just leave, without looking back.” – Charlotte Eriksson', "If you want to improve, be content to be thought foolish and stupid.―Epictetus. Some people aren't going to understand you, that doesn't mean that you have to listen to them when they tell you 'no'.", "Keep your head up. You've been through worse. Everything (even this is temporary)", "This too shall pass...Remember what your greatful for and that someone, somewhere would LOVE to have your 'bad day'"]
 };
 
-let currentObj = null; // eslint-disable-line no-unused-vars, prefer-const
 // eslint-disable-next-line no-unused-vars
 function Entry() {
   this.title = undefined;
@@ -29,17 +28,22 @@ function Entry() {
   this.draftNum = undefined;
 }
 
-// var previousEntries = localStorage.getItem('entries');
-// // eslint-disable-next-line no-unused-vars
-// entries = JSON.parse(previousEntries);
+const previousEntries = localStorage.getItem('entries');
+if (previousEntries != null) {
+  // eslint-disable-next-line no-unused-vars
+  entries = JSON.parse(previousEntries);
+}
 
-// var previousDrafts = localStorage.getItem('drafts');
-// // eslint-disable-next-line no-unused-vars
-// drafts = JSON.parse(previousDrafts);
+const previousDrafts = localStorage.getItem('drafts');
+if (previousDrafts != null) {
+  // eslint-disable-next-line no-unused-vars
+  drafts = JSON.parse(previousDrafts);
+}
 
-// window.addEventListener('beforeunload', function (event) {
-//   const entriesJSON = JSON.stringify(entries);
-//   const draftsJSON = JSON.stringify(drafts);
-//   localStorage.setItem('entries', entriesJSON);
-//   localStorage.setItem('drafts', draftsJSON);
-// });
+window.addEventListener('beforeunload', function (event) {
+  const entriesJSON = JSON.stringify(entries);
+  drafts.renderedTitles = [];
+  const draftsJSON = JSON.stringify(drafts);
+  localStorage.setItem('entries', entriesJSON);
+  localStorage.setItem('drafts', draftsJSON);
+});
