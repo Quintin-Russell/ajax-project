@@ -156,7 +156,7 @@ Ideas:
      </div>
     </div>
     <div data-view="draft" class="hidden">
-      <div class="container">
+      <div data="draft-list" class="container">
         <p class="work-sans draft-ul draft-desc">
           Click the <i class="fas fa-trash-alt"></i> to delete a draft <br>
           Click the <i class="fas fa-pen-fancy"></i> to edit a draft
@@ -182,6 +182,19 @@ Ideas:
 
         <button button="home" class="lrg-button">Return To Home Screen</button>
       </div>
+      <div data="draft-delete-modal" class="hidden`">
+        <div data="draft-delete-cont" class="hidden">
+          <h2 class="work-sans">Are you sure you don't need this draft anymore? <br>
+          Once deleted, it will be gone forever.
+          </h2>
+          <div class="row smbutton-container">
+            <button data="draftmodal-delete-but" class="sm-button">Delete Draft</button>
+            <button data="draftmodal-cancel-but" class="sm-button">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </main>
   <script src="js/data.js"></script>

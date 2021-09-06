@@ -29,7 +29,10 @@ const $graphDiv = document.querySelector('[data-view ="graph"]');
 const $graphCanv = document.querySelector('#myChart');
 const $draftDiv = document.querySelector('[data-view = "draft"]');
 const $draftUl = document.querySelector('[data="draft-ul"]');
-const $pgList = [$gratefulDiv, $NJDiv, $modalDiv, $graphDiv, $draftDiv];
+const $draftDivList = document.querySelector('[data="draft-list"]');
+const $draftDeleteModal = document.querySelector('[data="draft-delete-modal"]');
+const $draftDeleteModalCont = document.querySelector('[data="draft-delete-cont"]');
+const $pgList = [$gratefulDiv, $NJDiv, $modalDiv, $graphDiv, $draftDiv, $draftDeleteModalCont, $draftDeleteModal];
 const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 let currentObj = null;
 let date;
@@ -266,12 +269,25 @@ function compileDraftBoxes() {
   }
 }
 
-function editDraft(draft) {
-
-}
+// function editDraft(draft) {
+//     for (const txtBox of $fiveThings) {
+//       console.log(`txtBox:`, txtBox)
+//       txtBox.textContent = txt;
+//       console.log(`txtox textCont:`, txtBox.textContent)
+//     }
+//   }
+// }
 
 function deleteDraft(draft) {
-
+  const drNum = draft.draftNum;
+  const $drLi = document.querySelector(`[data="${drNum}"]`);
+  const COIndexDr = drafts.drafts.indexOf(currentObj);
+  const COIndexRT = drafts.renderedTitles.indexOf(drNum);
+  if ((COIndexDr > -1) && (COIndexRT > -1)) {
+    drafts.drafts.splice(COIndexDr,1);
+    drafts.renderedTitles.splice(COIndexRT,1);
+    $draftUl.removeChild($drLi)
+  }
 }
 
 //global eventListeners
@@ -313,6 +329,8 @@ $headerLogo.addEventListener('click', function (e) {
   if ((hL !== null) && ($graphDiv.attributes.class.value === 'hidden') && ($draftDiv.attributes.class.value === 'hidden')) {
     // eslint-disable-next-line no-undef
     currentObj = new Entry();
+    currentObj.draftNum = drafts.nextDraftNum;
+    drafts.nextDraftNum++;
     currentObj.title = date;
     currentObj.formattedDate = formattedDate;
     for (const item of $fiveThings) {
@@ -320,7 +338,7 @@ $headerLogo.addEventListener('click', function (e) {
       currentObj.fiveThings.push(txt);
     }
     // eslint-disable-next-line no-undef
-    drafts[drafts].push(currentObj);
+    drafts.drafts.push(currentObj);
     $5thingsForm.reset();
     removePageID();
     removeHeaderID();
@@ -405,6 +423,8 @@ $nJContButton.addEventListener('click', function (e) {
   showPage($NJDiv, $gratefulDiv);
   // eslint-disable-next-line no-undef
   currentObj = new Entry();
+  currentObj.draftNum = drafts.nextDraftNum;
+  drafts.nextDraftNum++;
   currentObj.title = date;
   currentObj.formattedDate = formattedDate;
   for (const item of $fiveThings) {
@@ -427,35 +447,43 @@ $doneButton.addEventListener('click', function (e) {
 });
 
 // draftDiv eventListeners
-$draftUl.addEventListener('mouseover', (e) => {
-// if elm.funct = edit/delete --> bubble that describes what it does "click here to __ the draft"
-})
 
 $draftUl.addEventListener('click', (e) => {
   const tar = e.target;
   if ((tar.getAttribute('data') !== null) && (tar.getAttribute('funct')!== null)){
-  const tarNum = tar.getAttribute('data')
+  let tarNum = tar.getAttribute('data')
+  tarNum = parseInt(tarNum)
   const tarFunct = tar.getAttribute('funct')
-  if (tarFunct === 'edit') {
-    const dr = null;
-    for (const d of drafts.drafts){
-      if (d.draftNum === tarNum){
-        dr = d
-        break
-      }
-    }
-    if (dr !== null){
-      editDraft(dr);
-  }
-  } else if (tarFunct === 'delete'){
-    const dr = null;
     for (const d of drafts.drafts) {
       if (d.draftNum === tarNum) {
-        dr = d
+        currentObj = d
         break
       }
-      deleteDraft(dr)
   }
+    if ((tarFunct === 'edit') && (currentObj !== null)) {
+      editDraft(currentObj);
+      showPage($gratefulDiv,$draftDiv);
+  } else if ((tarFunct === 'delete') && (currentObj !== null)){
+    showPage($draftDeleteModal,$draftDivList);
+    const $modalDelBut = document.querySelector('[data="draftmodal-delete-but"]');
+    const $modalCanBut = document.querySelector('[data="draftmodal-cancel-but"]');
+    $draftDeleteModal.setAttribute('class', 'overlay')
+    $draftDeleteModalCont.setAttribute('class', 'container modal')
+    $draftDeleteModalCont.addEventListener('click', (event2) => {
+      if ((event2.target === $modalDelBut) || (event2.target === $modalCanBut)) {
+        if (event2.target === $modalDelBut) {
+          deleteDraft(currentObj);
+          showPage($draftDivList,$draftDeleteModal);
+          $draftDeleteModalCont.setAttribute('class', 'hidden');
+          currentObj = null
+        } else {
+          showPage($draftDivList, $draftDeleteModal);
+          $draftDeleteModalCont.setAttribute('class', 'hidden');
+          currentObj = null;
+        }
+      }
+    })
+
 }
   }
 })
