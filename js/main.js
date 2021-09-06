@@ -2,7 +2,7 @@
 
 const $newJournalButton = document.querySelector('[button = "new-journal"]');
 const $draftButton = document.querySelector('[button = "drafts"]');
-const $graphButton = document.querySelector('[button = "view-moodgraph"]');
+const $graphButton = document.querySelectorAll('[button = "view-moodgraph"]');
 const $homeDiv = document.querySelector('[data-view = "home-screen"]');
 const $gratefulDiv = document.querySelector('[data-view = "grateful"]');
 const $5thingsForm = document.getElementById('five-things');
@@ -168,6 +168,45 @@ function sendGraphAPI(entries) {
   });
 }
 
+function saveDraft(event, arrPush) {
+//  const hL = document.getElementById('header-logo');
+      if (drafts.editing === null) {
+        event.preventDefault();
+        // eslint-disable-next-line no-undef
+        currentObj = new Entry();
+        currentObj.draftNum = drafts.nextDraftNum
+        drafts.nextDraftNum++
+        currentObj.title = date;
+        currentObj.formattedDate = formattedDate;
+        for (const item of $fiveThings) {
+          const txt = item.value;
+          currentObj.fiveThings.push(txt);
+        }
+        if ($journalTextForm.value !== undefined) {
+          currentObj.text = $journalTextForm.value;
+        }
+        // eslint-disable-next-line no-undef
+        if (arrPush !== null) {
+          arrPush.push(currentObj);
+        }
+      } else if (drafts.editing !== null) {
+        for (let i = 0; i < ($fiveThings.length - 1); i++) {
+          const txt = $fiveThings[i].value;
+          drafts.editing.fiveThings[i] = txt;
+        }
+        if ($NJTextCont.value.length > 0) {
+          drafts.editing.text = $NJTextCont.value;
+        }
+        //find og drafts.editing obj in drafts.drafts and reassign
+        for (let dr of drafts.drafts) {
+          if (dr.draftNum === drafts.editing.draftNum) {
+            dr = drafts.editing
+          }
+        }
+
+      }
+}
+
 function sendMoodReq(text) {
   const formdata = new FormData();
   formdata.append('key', 'e599b98b4c266944eb2b0f2ada2724cc');
@@ -243,6 +282,20 @@ function makeDraftBox(draft) {
   return $draftLi
 }
 
+function journalContExists() {
+  let contentExists = false
+  for (const item of $5thingsForm) {
+    if (item.value.length > 0) {
+      contentExists = true
+      break
+    }
+  }
+  if ((contentExists === false) && ($NJTextCont.value.length > 0)) {
+    contentExists = true;
+  }
+  return contentExists
+}
+
 function compileDraftBoxes() {
   if (drafts.drafts.length > 0) {
     const $noDraft = document.querySelector('[data="no-drafts"]');
@@ -269,19 +322,22 @@ function compileDraftBoxes() {
   }
 }
 
-// function editDraft(draft) {
-//     for (const txtBox of $fiveThings) {
-//       console.log(`txtBox:`, txtBox)
-//       txtBox.textContent = txt;
-//       console.log(`txtox textCont:`, txtBox.textContent)
-//     }
-//   }
-// }
+function editDraft(draft) {
+  let count = 0;
+    for (const txtBox of $fiveThings) {
+      txtBox.textContent = draft.fiveThings[count];
+      count++
+    }
+    $NJTextCont.textContent = drafts.editing.text
+    for ($dtH2 of $dateH2) {
+      $dtH2.textContent = draft.formattedDate;
+    }
+  }
 
 function deleteDraft(draft) {
   const drNum = draft.draftNum;
   const $drLi = document.querySelector(`[data="${drNum}"]`);
-  const COIndexDr = drafts.drafts.indexOf(currentObj);
+  const COIndexDr = drafts.drafts.indexOf(draft);
   const COIndexRT = drafts.renderedTitles.indexOf(drNum);
   if ((COIndexDr > -1) && (COIndexRT > -1)) {
     drafts.drafts.splice(COIndexDr,1);
@@ -294,66 +350,73 @@ function deleteDraft(draft) {
 window.addEventListener('click', function (e) {
   for (const sm of $saveDraftButton) {
     if (e.target === sm) {
-      e.preventDefault();
-      // eslint-disable-next-line no-undef
-      currentObj = new Entry();
-      currentObj.draftNum = drafts.nextDraftNum
-      drafts.nextDraftNum++
-      currentObj.title = date;
-      for (const item of $fiveThings) {
-        const txt = item.value;
-        currentObj.fiveThings.push(txt);
-        currentObj.formattedDate = formattedDate;
-      }
-      if ($journalTextForm.value !== undefined) {
-        currentObj.text = $journalTextForm.value;
+      const contExists = journalContExists();
+        if (contExists === true){
+          saveDraft(e, drafts.drafts);
+        drafts.editing = null
+        currentObj = null;
+        for (const pg of $pgList) {
+          removeHeaderID();
+          removePageID();
+          showPage($homeDiv, pg);
+        }
         $journalTextForm.reset();
-      }
-      // eslint-disable-next-line no-undef
-      drafts.drafts.push(currentObj);
-      currentObj = null;
-
-      for (const pg of $pgList) {
-        removeHeaderID();
-        removePageID();
-        showPage($homeDiv, pg);
-      }
-      $5thingsForm.reset();
-      break;
+        $5thingsForm.reset();
+            break
+        } else {
+          window.alert(`There is nothing to save! We'll take you back to the home page so you can come back to this later`)
+        }
     }
   }
 });
 
 $headerLogo.addEventListener('click', function (e) {
+  const event = e;
   const hL = document.getElementById('header-logo');
+  const contentExists = journalContExists();
   if ((hL !== null) && ($graphDiv.attributes.class.value === 'hidden') && ($draftDiv.attributes.class.value === 'hidden')) {
-    // eslint-disable-next-line no-undef
-    currentObj = new Entry();
-    currentObj.draftNum = drafts.nextDraftNum;
-    drafts.nextDraftNum++;
-    currentObj.title = date;
-    currentObj.formattedDate = formattedDate;
-    for (const item of $fiveThings) {
-      const txt = item.value;
-      currentObj.fiveThings.push(txt);
-    }
-    // eslint-disable-next-line no-undef
-    drafts.drafts.push(currentObj);
-    $5thingsForm.reset();
-    removePageID();
-    removeHeaderID();
-    for (const page of $pgList) {
-      showPage($homeDiv, page);
-    }
+    if (contentExists === true) {
     window.alert('Your journal entry was saved as a draft!');
-    currentObj = null;
-  } else {
-    for (const pg of $pgList) {
-      removeHeaderID();
-      removePageID();
-      showPage($homeDiv, pg);
+     saveDraft(event, drafts.drafts)
+      drafts.editing = null
+      currentObj = null;
+      for (const pg of $pgList) {
+        removeHeaderID();
+        removePageID();
+        showPage($homeDiv, pg);
+      }
+      $journalTextForm.reset();
+      $5thingsForm.reset();
+    } else {
+      for (const page of $pgList) {
+        showPage($homeDiv, page);
+      }
     }
+
   }
+  });
+
+window.addEventListener('click', function (e) {
+  for (const gr of $graphButton){
+    if (e.target == gr) {
+    for (const pg of $pgList) {
+    removeHeaderID();
+    removePageID();
+    showPage($graphDiv, pg);
+  }
+  setHeaderID();
+  const $nJHeader = document.createElement('li');
+  const $nJHeaderH2 = document.createElement('h2');
+  $nJHeaderH2.textContent = 'MoodGraph';
+  $nJHeader.setAttribute('data', 'pg-ID');
+  $nJHeader.appendChild($nJHeaderH2);
+  $headerUl.appendChild($nJHeader);
+  $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
+  $headerLogo.setAttribute('class', 'header-logo work-sans');
+  // eslint-disable-next-line no-undef
+  sendGraphAPI(entries);
+  }
+    }
 });
 
 window.addEventListener('click', function (e) {
@@ -386,22 +449,12 @@ $newJournalButton.addEventListener('click', function (e) {
   for (item of $dateH2) {
     item.textContent = 'Date: ' + formattedDate;
   }
+  for (const item of $fiveThings) {
+    item.textContent = "";
+  }
 });
 
-$graphButton.addEventListener('click', function (e) {
-  showPage($graphDiv, $homeDiv);
-  setHeaderID();
-  const $nJHeader = document.createElement('li');
-  const $nJHeaderH2 = document.createElement('h2');
-  $nJHeaderH2.textContent = 'MoodGraph';
-  $nJHeader.setAttribute('data', 'pg-ID');
-  $nJHeader.appendChild($nJHeaderH2);
-  $headerUl.appendChild($nJHeader);
-  $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
-  $headerLogo.setAttribute('class', 'header-logo work-sans');
-  // eslint-disable-next-line no-undef
-  sendGraphAPI(entries);
-});
+
 
 $draftButton.addEventListener('click', function (e) {
   showPage($draftDiv, $homeDiv);
@@ -419,27 +472,29 @@ $draftButton.addEventListener('click', function (e) {
 
 // gratefulDiv eventListeners
 $nJContButton.addEventListener('click', function (e) {
-  e.preventDefault();
+  const event = e;
+  event.preventDefault();
   showPage($NJDiv, $gratefulDiv);
   // eslint-disable-next-line no-undef
-  currentObj = new Entry();
-  currentObj.draftNum = drafts.nextDraftNum;
-  drafts.nextDraftNum++;
-  currentObj.title = date;
-  currentObj.formattedDate = formattedDate;
-  for (const item of $fiveThings) {
-    const txt = item.value;
-    currentObj.fiveThings.push(txt);
+  saveDraft(event, null)
+  // if currentObj === null, currentObj = drafts.editing
+  if ((currentObj === null) && (drafts.editing !== null)) {
+    currentObj = drafts.editing
   }
-});
+  });
 
 $doneButton.addEventListener('click', function (e) {
   if (($NJTextCont.value.length) > 0) {
     e.preventDefault();
+    if (drafts.editing !== null) {
+      currentObj = drafts.editing;
+    }
     // eslint-disable-next-line no-undef
     currentObj.text = $NJTextCont.value;
     // eslint-disable-next-line no-undef
     sendMoodReq(currentObj.text);
+    deleteDraft(drafts.editing)
+    drafts.editing = null;
     removeHeaderID();
   } else {
     window.alert("It looks like you forgot to write something. Tell us what's on your mind! (or save it as a draft for later)");
@@ -456,14 +511,14 @@ $draftUl.addEventListener('click', (e) => {
   const tarFunct = tar.getAttribute('funct')
     for (const d of drafts.drafts) {
       if (d.draftNum === tarNum) {
-        currentObj = d
+        drafts.editing = d
         break
       }
   }
-    if ((tarFunct === 'edit') && (currentObj !== null)) {
-      editDraft(currentObj);
+    if ((tarFunct === 'edit') && (drafts.editing !== null)) {
+      editDraft(drafts.editing);
       showPage($gratefulDiv,$draftDiv);
-  } else if ((tarFunct === 'delete') && (currentObj !== null)){
+  } else if ((tarFunct === 'delete') && (drafts.editing !== null)){
     showPage($draftDeleteModal,$draftDivList);
     const $modalDelBut = document.querySelector('[data="draftmodal-delete-but"]');
     const $modalCanBut = document.querySelector('[data="draftmodal-cancel-but"]');
@@ -472,10 +527,10 @@ $draftUl.addEventListener('click', (e) => {
     $draftDeleteModalCont.addEventListener('click', (event2) => {
       if ((event2.target === $modalDelBut) || (event2.target === $modalCanBut)) {
         if (event2.target === $modalDelBut) {
-          deleteDraft(currentObj);
+          deleteDraft(drafts.editing);
           showPage($draftDivList,$draftDeleteModal);
           $draftDeleteModalCont.setAttribute('class', 'hidden');
-          currentObj = null
+          drafts.editing = null
         } else {
           showPage($draftDivList, $draftDeleteModal);
           $draftDeleteModalCont.setAttribute('class', 'hidden');

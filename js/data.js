@@ -5,7 +5,8 @@ let entries = [];
 let drafts = {
   drafts: [],
   renderedTitles: [],
-  nextDraftNum: 0
+  nextDraftNum: 0,
+  editing: null
 };
 // eslint-disable-next-line no-unused-vars
 const quotes = {
@@ -18,14 +19,14 @@ const quotes = {
 
 // eslint-disable-next-line no-unused-vars
 function Entry() {
-  this.title = undefined;
-  this.formattedDate = undefined;
+  this.title = null;
+  this.formattedDate = null;
   this.fiveThings = [];
-  this.text = undefined;
-  this.response = undefined;
-  this.score = undefined;
-  this.scoreNum = undefined;
-  this.draftNum = undefined;
+  this.text = null;
+  this.response = null;
+  this.score = null;
+  this.scoreNum = null;
+  this.draftNum = null;
 }
 
 const previousEntries = localStorage.getItem('entries');
@@ -41,6 +42,9 @@ if (previousDrafts != null) {
 }
 
 window.addEventListener('beforeunload', function (event) {
+  drafts.editing = null;
+  // eslint-disable-next-line no-undef
+  currentObj = null;
   const entriesJSON = JSON.stringify(entries);
   drafts.renderedTitles = [];
   const draftsJSON = JSON.stringify(drafts);
