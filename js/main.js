@@ -373,8 +373,9 @@ window.addEventListener('click', function (e) {
 $headerLogo.addEventListener('click', function (e) {
   const event = e;
   const hL = document.getElementById('header-logo');
+  // && ($draftDiv.attributes.class.value === 'hidden')
   const contentExists = journalContExists();
-  if ((hL !== null) && ($graphDiv.attributes.class.value === 'hidden') && ($draftDiv.attributes.class.value === 'hidden')) {
+  if ((hL !== null) && ($graphDiv.attributes.class.value === 'hidden')) {
     if (contentExists === true) {
     window.alert('Your journal entry was saved as a draft!');
      saveDraft(event, drafts.drafts)
@@ -458,7 +459,6 @@ $newJournalButton.addEventListener('click', function (e) {
 
 $draftButton.addEventListener('click', function (e) {
   showPage($draftDiv, $homeDiv);
-  setHeaderID();
   const $draftHeader = document.createElement('li');
   const $draftHeaderH2 = document.createElement('h2');
   $draftHeaderH2.textContent = 'Drafts';
@@ -467,6 +467,7 @@ $draftButton.addEventListener('click', function (e) {
   $headerUl.appendChild($draftHeader);
   $draftHeaderH2.setAttribute('class', 'new-journal-header work-sans');
   $headerLogo.setAttribute('class', 'header-logo work-sans');
+  setHeaderID();
   compileDraftBoxes();
 });
 
