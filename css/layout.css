@@ -82,7 +82,6 @@
 
 .modal {
   background-color: white;
-  height: 90%;
   width: 90%;
   justify-content: space-between;
   text-align: center;
@@ -94,8 +93,26 @@
 
 .chart-cont {
   width: 100%;
+  margin: 1rem;
 }
 
 .chart-button {
   width: 50%;
+}
+
+.draft-ul {
+  padding: 0;
+  margin: 0;
+}
+
+.draft-li {
+  margin: 1rem 0;
+}
+
+.fas {
+  padding: 1rem;
+}
+
+.small-margin {
+  margin: 0.1rem;
 }

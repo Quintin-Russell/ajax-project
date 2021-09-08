@@ -69,6 +69,22 @@
   list-style-type: none;
 }
 
+.graph-desc {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #b6b6b6;
+}
+
+.fa-trash-alt:hover,
+.fa-pen-fancy:hover {
+  cursor: pointer;
+}
+
+.draft-desc {
+  text-align: center;
+}
+
 @media screen and (max-width: 405px) {
   .work-sans {
     font-size: 1em;
