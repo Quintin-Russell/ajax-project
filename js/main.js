@@ -85,6 +85,8 @@ function getScoreNum(score) {
   } else if (score === 'N+') {
     // eslint-disable-next-line no-undef
     currentObj.scoreNum = -2;
+  } else {
+    currentObj.scoreNum = 0;
   }
 }
 
