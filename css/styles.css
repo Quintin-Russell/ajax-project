@@ -42,11 +42,6 @@
   background-color: #b5cda3;
 }
 
-.sm-button:active,
-.lrg-button:active {
-  transform: translateY(1rem);
-}
-
 .header-logo {
   color: rgba(0, 0, 0, 0.4);
 }
@@ -79,6 +74,11 @@
 .fa-trash-alt:hover,
 .fa-pen-fancy:hover {
   cursor: pointer;
+}
+
+#header-logo:hover {
+  cursor: pointer;
+  color: black;
 }
 
 .draft-desc {

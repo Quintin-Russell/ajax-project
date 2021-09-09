@@ -54,11 +54,6 @@
   padding: 1rem;
 }
 
-#header-logo:hover {
-  cursor: pointer;
-  color: black;
-}
-
 .NJ-bkgrd {
   height: 40rem;
   padding: 0;
