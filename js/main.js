@@ -86,6 +86,7 @@ function getScoreNum(score) {
     // eslint-disable-next-line no-undef
     currentObj.scoreNum = -2;
   } else {
+    score = "NEU"
     currentObj.scoreNum = 0;
   }
 }
@@ -407,6 +408,7 @@ window.addEventListener('click', function (e) {
     removePageID();
     showPage($graphDiv, pg);
   }
+      showPage($graphDiv, $homeDiv)
   setHeaderID();
   const $nJHeader = document.createElement('li');
   const $nJHeaderH2 = document.createElement('h2');
@@ -475,11 +477,10 @@ $draftButton.addEventListener('click', function (e) {
 
 // gratefulDiv eventListeners
 $nJContButton.addEventListener('click', function (e) {
-  const event = e;
-  event.preventDefault();
+  e.preventDefault();
   showPage($NJDiv, $gratefulDiv);
   // eslint-disable-next-line no-undef
-  saveDraft(event, null)
+  saveDraft(e, null)
   // if currentObj === null, currentObj = drafts.editing
   if ((currentObj === null) && (drafts.editing !== null)) {
     currentObj = drafts.editing
