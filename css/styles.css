@@ -1,6 +1,25 @@
 .div-background {
   background-color: rgba(193, 172, 149, 0.2);
-  max-width: 80%;
+}
+
+.header-list {
+    list-style-type: none;
+}
+
+.home-img {
+    border-radius: 1rem;
+}
+
+.form-label {
+    border-radius: 1rem;
+}
+
+.overlay {
+    background: rgba(0, 0, 0, 0.61);
+}
+
+.modal {
+    background-color: white;
 }
 
 .roboto {
@@ -103,5 +122,4 @@
     font-size: 1rem;
     font-weight: 300;
   }
-}
 }
