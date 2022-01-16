@@ -7,8 +7,7 @@
   <dt>
     Technologies
   </dt>
-  <dd>* JavaScript</dd>
+  <dd>- JavaScript ES6</dd>
+  <dd>- HTML</dd>
+  <dd>- CSS3</dd>
 </dl>
-
-# one hash
-## two hash
