@@ -42,5 +42,5 @@ Try the application live at [https://quintin-russell.github.io/ajax-project/](ht
 </dl>
 
 - Convert application to a full-stack application
-  - Created database
+  - Create database
   - Add `Express.js` endpoints
