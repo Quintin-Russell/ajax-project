@@ -15,7 +15,7 @@
 
 <dl>
   <dt>
-    Live Demo
+    Live Demo: 
   </dt>
 </dl>
 
