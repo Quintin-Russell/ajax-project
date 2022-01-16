@@ -7,7 +7,8 @@
   <dt>
     Technologies
   </dt>
-  <dd>- JavaScript ES6</dd>
-  <dd>- HTML</dd>
-  <dd>- CSS3</dd>
 </dl>
+
+- JavaScript ES6
+- HTML
+- CSS3
