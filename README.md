@@ -20,7 +20,8 @@
 </dl>
 
 Try the application live at [https://quintin-russell.github.io/ajax-project/](https://quintin-russell.github.io/ajax-project/)
-![Ajax-Project Demo](/Users/qrussell/Documents/ajax-prj-demo.gif)
+
+![Ajax-Project Demo](https://github.com/Quintin-Russell/ajax-project/blob/master/ajax-prj-demo.gif)
 
 <dl>
   <dt>
