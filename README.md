@@ -27,11 +27,11 @@ Try the application live at [https://quintin-russell.github.io/ajax-project/](ht
   </dt>
 </dl>
 
--User can make a journal entry.
--User can see their journal entry plotted on a mood graph.
--User can see multiple entries on their mood graph.
--User can save an entry as a draft.
--User can view list of drafts.
--User can edit their list of drafts.
--User can delete a draft.
+- User can make a journal entry.
+- User can see their journal entry plotted on a mood graph.
+- User can see multiple entries on their mood graph.
+- User can save an entry as a draft.
+- User can view list of drafts.
+- User can edit their list of drafts.
+- User can delete a draft.
 
