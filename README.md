@@ -23,6 +23,8 @@ Try the application live at [https://quintin-russell.github.io/ajax-project/](ht
 
 ![Ajax-Project Demo](https://github.com/Quintin-Russell/ajax-project/blob/master/ajax-prj-demo.gif)
 
+![Ajax-Project Demo2](https://github.com/Quintin-Russell/ajax-project/blob/master/ajax-prj-demo2.gif)
+
 <dl>
   <dt>
     Features: 
