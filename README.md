@@ -19,7 +19,7 @@
   </dt>
 </dl>
 
-Try the application live at [https://quintin-russell.github.io/ajax-project/](https://quintin-russell.github.io/ajax-project/)
+Try the application live at [https://quintin-russell.github.io/mood-trace/](https://quintin-russell.github.io/mood-trace/)
 
 ![Ajax-Project Demo](https://github.com/Quintin-Russell/ajax-project/blob/master/ajax-prj-demo.gif)
 
