@@ -15,7 +15,7 @@
 
 <dl>
   <dt>
-    Live Demo: 
+    Live Demo:
   </dt>
 </dl>
 
@@ -41,7 +41,8 @@ Try the application live at [https://quintin-russell.github.io/mood-trace/](http
 
 <dl>
   <dt>
-    Strech Features: 
+
+    Strech Features:
   </dt>
 </dl>
 
