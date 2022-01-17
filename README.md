@@ -1,7 +1,7 @@
 ![alt text](https://github.com/Quintin-Russell/ajax-project/blob/master/images/ajax-logo.jpg "MoodTrace Logo")
 
 # MoodTrace
-### A front-end web application for people that want to priotize their mental health by journaling and tracking their general mental state over time.
+### A front-end web application for people that want to prioritize their mental health by journaling and tracking their general mental state over time.
 
 <dl>
   <dt>
