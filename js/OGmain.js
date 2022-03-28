@@ -1,48 +1,23 @@
 /*eslint-disable */
 
 const $newJournalButton = document.querySelector('[button = "new-journal"]');
-// const $newJournalButton = $("[button='new-journal']")
-
-// const $draftButton = document.querySelector('[button = "drafts"]');
-const $draftButton = $('[button = "drafts"]')
-
-// const $graphButton = document.querySelectorAll('[button = "view-moodgraph"]');
-const $graphButton = $('[button = "view-moodgraph"]')
-
-// const $homeDiv = document.querySelector('[data-view = "home-screen"]');
-const $homeDiv = $('[data-view = "home-screen"]');
-
-// const $gratefulDiv = document.querySelector('[data-view = "grateful"]');
-const $gratefulDiv = $('[data-view = "grateful"]');
-
-// const $5thingsForm = document.getElementById('five-things');
-const $5thingsForm = $('#five-things');
-
-// const $journalTextForm = document.querySelector('#journal-cont');
-const $journalTextForm = $('#journal-cont');
-
-// const $headerUl = document.querySelector('.header-list');
-const $headerUl = $('.header-list');
-
-// const $headerLogo = document.querySelector('[data = "header-logo"]');
-const $headerLogo = $('[data = "header-logo"]')
-
-// const $dateH2 = document.querySelectorAll('[data="date"]');
-const $dateH2 = $('[data="date"]');
-
-// const $saveDraftButton = document.querySelectorAll('[button = "save-draft"]');
-const $saveDraftButton = $('[button = "save-draft"]');
-
-// const $nJContButton = document.querySelector('[button = "new-journal-cont"]');
-const $nJContButton = $('[button = "new-journal-cont"]');
-
+const $draftButton = document.querySelector('[button = "drafts"]');
+const $graphButton = document.querySelectorAll('[button = "view-moodgraph"]');
+const $homeDiv = document.querySelector('[data-view = "home-screen"]');
+const $gratefulDiv = document.querySelector('[data-view = "grateful"]');
+const $5thingsForm = document.getElementById('five-things');
+const $journalTextForm = document.querySelector('#journal-cont');
+const $headerUl = document.querySelector('.header-list');
+const $headerLogo = document.querySelector('[data = "header-logo"]');
+const $dateH2 = document.querySelectorAll('[data="date"]');
+const $saveDraftButton = document.querySelectorAll('[button = "save-draft"]');
+const $nJContButton = document.querySelector('[button = "new-journal-cont"]');
 const $grateful1 = document.getElementById('grateful1');
 const $grateful2 = document.getElementById('grateful2');
 const $grateful3 = document.getElementById('grateful3');
 const $grateful4 = document.getElementById('grateful4');
 const $grateful5 = document.getElementById('grateful5');
 const $fiveThings = [$grateful1, $grateful2, $grateful3, $grateful4, $grateful5];
-
 const $NJDiv = document.querySelector('[data-view="new-journal"]');
 const $NJTextCont = document.querySelector('#journal-cont-text');
 const $doneButton = document.querySelector('[button="done"]');
