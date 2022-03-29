@@ -12,12 +12,16 @@ const $headerLogo = document.querySelector('[data = "header-logo"]');
 const $dateH2 = document.querySelectorAll('[data="date"]');
 const $saveDraftButton = document.querySelectorAll('[button = "save-draft"]');
 const $nJContButton = document.querySelector('[button = "new-journal-cont"]');
-const $grateful1 = document.getElementById('grateful1');
-const $grateful2 = document.getElementById('grateful2');
-const $grateful3 = document.getElementById('grateful3');
-const $grateful4 = document.getElementById('grateful4');
-const $grateful5 = document.getElementById('grateful5');
-const $fiveThings = [$grateful1, $grateful2, $grateful3, $grateful4, $grateful5];
+
+// const $grateful1 = document.getElementById('grateful1');
+// const $grateful2 = document.getElementById('grateful2');
+// const $grateful3 = document.getElementById('grateful3');
+// const $grateful4 = document.getElementById('grateful4');
+// const $grateful5 = document.getElementById('grateful5');
+// const $fiveThings = [$grateful1, $grateful2, $grateful3, $grateful4, $grateful5];
+
+const $5things = $("ul#grateful-ul li")
+
 const $NJDiv = document.querySelector('[data-view="new-journal"]');
 const $NJTextCont = document.querySelector('#journal-cont-text');
 const $doneButton = document.querySelector('[button="done"]');
