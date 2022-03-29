@@ -1,7 +1,7 @@
 /*eslint-disable */
 
-const $newJournalButton = document.querySelector('[button = "new-journal"]');
-// const $newJournalButton = $("[button='new-journal']")
+// const $newJournalButton = document.querySelector('[button = "new-journal"]');
+const $newJournalButton = $("[button='new-journal']")
 
 // const $draftButton = document.querySelector('[button = "drafts"]');
 const $draftButton = $('[button = "drafts"]')
@@ -44,21 +44,51 @@ const $nJContButton = $('[button = "new-journal-cont"]');
 // const $fiveThings = [$grateful1, $grateful2, $grateful3, $grateful4, $grateful5];
 const $5things = $("ul#grateful-ul li")
 
-const $NJDiv = document.querySelector('[data-view="new-journal"]');
-const $NJTextCont = document.querySelector('#journal-cont-text');
-const $doneButton = document.querySelector('[button="done"]');
-const $modalDiv = document.querySelector('[data-view="done-modal"]');
-const $scoreH1 = document.querySelector('[data="modal-score"]');
-const $modalQuoteP = document.querySelector('[data="modal-quote"]');
-const $homeButton = document.querySelectorAll('[button="home"]');
-const $graphDiv = document.querySelector('[data-view ="graph"]');
-const $graphCanv = document.querySelector('#myChart');
-const $draftDiv = document.querySelector('[data-view = "draft"]');
-const $draftUl = document.querySelector('[data="draft-ul"]');
-const $draftDivList = document.querySelector('[data="draft-list"]');
-const $draftDeleteModal = document.querySelector('[data="draft-delete-modal"]');
-const $draftDeleteModalCont = document.querySelector('[data="draft-delete-cont"]');
+// const $NJDiv = document.querySelector('[data-view="new-journal"]');
+const $NJDiv = $('[data-view="new-journal"]').first();
+
+// const $NJTextCont = document.querySelector('#journal-cont-text');
+const $NJTextCont = $('#journal-cont-text');
+
+// const $doneButton = document.querySelector('[button="done"]');
+const $doneButton = $('[button="done"]');
+
+// const $modalDiv = document.querySelector('[data-view="done-modal"]');
+const $modalDiv = $('[data-view="done-modal"]');
+
+// const $scoreH1 = document.querySelector('[data="modal-score"]');
+const $scoreH1 = $('[data="modal-score"]');
+
+// const $modalQuoteP = document.querySelector('[data="modal-quote"]');
+const $modalQuoteP = $('[data="modal-quote"]');
+
+// const $homeButton = document.querySelectorAll('[button="home"]');
+const $homeButton = $('[button="home"]');
+
+// const $graphDiv = document.querySelector('[data-view ="graph"]');
+const $graphDiv = $('[data-view ="graph"]');
+
+// const $graphCanv = document.querySelector('#myChart');
+const $graphCanv = $('#myChart');
+
+// const $draftDiv = document.querySelector('[data-view = "draft"]');
+const $draftDiv = $('[data-view = "draft"]');
+
+// const $draftUl = document.querySelector('[data="draft-ul"]');
+const $draftUl = $('[data="draft-ul"]');
+
+// const $draftDivList = document.querySelector('[data="draft-list"]');
+const $draftDivList = $('[data="draft-list"]');
+
+// const $draftDeleteModal = document.querySelector('[data="draft-delete-modal"]');
+const $draftDeleteModal = $('[data="draft-delete-modal"]');
+
+// const $draftDeleteModalCont = document.querySelector('[data="draft-delete-cont"]');
+const $draftDeleteModalCont = $('[data="draft-delete-cont"]');
+
 const $pgList = [$gratefulDiv, $NJDiv, $modalDiv, $graphDiv, $draftDiv, $draftDeleteModalCont, $draftDeleteModal];
+console.log($pgList)
+
 const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 let currentObj = null;
 let date;
