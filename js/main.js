@@ -22,7 +22,7 @@ const $5thingsForm = $('#five-things');
 const $journalTextForm = $('#journal-cont');
 
 // const $headerUl = document.querySelector('.header-list');
-const $headerUl = $('.header-list');
+const $headerUl = $('.header-list').first();
 
 // const $headerLogo = document.querySelector('[data = "header-logo"]');
 const $headerLogo = $('[data = "header-logo"]')
@@ -87,27 +87,26 @@ const $draftDeleteModal = $('[data="draft-delete-modal"]');
 const $draftDeleteModalCont = $('[data="draft-delete-cont"]');
 
 const $pgList = [$gratefulDiv, $NJDiv, $modalDiv, $graphDiv, $draftDiv, $draftDeleteModalCont, $draftDeleteModal];
-console.log($pgList)
 
 const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 let currentObj = null;
 let date;
 let formattedDate;
 
-function showPage(show, hide) {
-  show.setAttribute('class', 'container');
-  hide.setAttribute('class', 'hidden');
+const showPage = (show, hide) => {
+  show.toggleClass('container');
+  hide.toggleClass('hidden');
 }
 
-function setHeaderID() {
-  $headerLogo.setAttribute('id', 'header-logo');
+const setHeaderID = () => {
+  $($headerLogo).attr('id', 'header-logo');
 }
 
-function removeHeaderID() {
-  $headerLogo.setAttribute('id', null);
+const removeHeaderID = () => {
+  $($headerLogo).attr('id', null);
 }
 
-function getDate() {
+const getDate = () => {
   date = new Date();
   let month = date.getMonth();
   month = monthArr[month];
@@ -115,17 +114,17 @@ function getDate() {
   day = day.toString();
   let year = date.getFullYear();
   year = year.toString();
-  formattedDate = month + ' ' + day + ', ' + year;
+  formattedDate = `${month} ${day}, ${year}`;
 }
 
-function removePageID() {
-  if (($headerUl.childNodes.length) > 3) {
-    const $pgID = document.querySelector('[data = "pg-ID"]');
-    $headerUl.removeChild($pgID);
+const removePageID = () => {
+  if (($($headerUl).children.length) > 3) {
+    const $pgID = $('[data = "pg-ID"]');
+    $headerUl.remove($pgID);
   }
 }
 
-function getScoreNum(score) {
+const getScoreNum = (score) => {
   if (score === 'P+') {
     // eslint-disable-next-line no-undef
     currentObj.scoreNum = 2;
@@ -147,7 +146,7 @@ function getScoreNum(score) {
   }
 }
 
-function randQuote(score) {
+const randQuote = (score) => {
   let quote = '';
   // eslint-disable-next-line no-undef
   for (const key in quotes) {
@@ -161,7 +160,7 @@ function randQuote(score) {
   }
 }
 
-function afterAPI() {
+const afterAPI = () => {
   $5thingsForm.reset();
   $journalTextForm.reset();
   // eslint-disable-next-line no-undef
@@ -179,7 +178,7 @@ function afterAPI() {
   showPage($modalDiv, $NJDiv);
 }
 // eslint-disable-next-line no-unused-vars
-function sendGraphAPI(entries) {
+const sendGraphAPI = (entries) => {
   const xlabels = [];
   const ylabels = [];
   for (const ent of entries) {
@@ -227,7 +226,7 @@ function sendGraphAPI(entries) {
   });
 }
 
-function saveDraft(event, arrPush) {
+const saveDraft = (event, arrPush) => {
 //  const hL = document.getElementById('header-logo');
       if (drafts.editing === null) {
         event.preventDefault();
@@ -266,7 +265,7 @@ function saveDraft(event, arrPush) {
       }
 }
 
-function sendMoodReq(text) {
+const sendMoodReq = (text) => {
   const formdata = new FormData();
   formdata.append('key', 'e599b98b4c266944eb2b0f2ada2724cc');
   formdata.append('txt', text);
@@ -294,7 +293,7 @@ function sendMoodReq(text) {
       window.alert("We don't know what happened there, but something went wrong. Please try to submit again"));
 }
 
-function makeDraftBox(draft) {
+const makeDraftBox = (draft) => {
   const $draftImgDiv = document.createElement('div');
   const $draftImg = document.createElement('img');
   $draftImg.setAttribute('class', 'item-img');
@@ -341,7 +340,7 @@ function makeDraftBox(draft) {
   return $draftLi
 }
 
-function journalContExists() {
+const journalContExists = () => {
   let contentExists = false
   for (const item of $5thingsForm) {
     if (item.value.length > 0) {
@@ -355,7 +354,7 @@ function journalContExists() {
   return contentExists
 }
 
-function compileDraftBoxes() {
+const compileDraftBoxes = () => {
   if (drafts.drafts.length > 0) {
     const $noDraft = document.querySelector('[data="no-drafts"]');
     if ($noDraft) {
@@ -380,7 +379,7 @@ function compileDraftBoxes() {
   }
 }
 
-function editDraft(draft) {
+const editDraft = (draft) => {
   let count = 0;
     for (const txtBox of $fiveThings) {
       txtBox.textContent = draft.fiveThings[count];
@@ -392,7 +391,7 @@ function editDraft(draft) {
     }
   }
 
-function deleteDraft(draft) {
+const deleteDraft = (draft) => {
   const drNum = draft.draftNum;
   const $drLi = document.querySelector(`[data="${drNum}"]`);
   const COIndexDr = drafts.drafts.indexOf(draft);
@@ -404,7 +403,7 @@ function deleteDraft(draft) {
   }
 }
 
-window.addEventListener('click', function (e) {
+window.addEventListener('click', (e) => {
   for (const sm of $saveDraftButton) {
     if (e.target === sm) {
       const contExists = journalContExists();
@@ -427,7 +426,7 @@ window.addEventListener('click', function (e) {
   }
 });
 
-$headerLogo.addEventListener('click', function (e) {
+$($headerLogo).click((e) => {
   const event = e;
   const hL = document.getElementById('header-logo');
   const contentExists = journalContExists();
@@ -453,7 +452,7 @@ $headerLogo.addEventListener('click', function (e) {
   }
   });
 
-window.addEventListener('click', function (e) {
+window.addEventListener('click', (e) => {
   for (const gr of $graphButton){
     if (e.target == gr) {
     for (const pg of $pgList) {
@@ -477,7 +476,7 @@ window.addEventListener('click', function (e) {
     }
 });
 
-window.addEventListener('click', function (e) {
+window.addEventListener('click', (e) => {
   for (const but of $homeButton) {
     if (e.target === but) {
       for (const pg of $pgList) {
@@ -491,7 +490,7 @@ window.addEventListener('click', function (e) {
 });
 
 // home page eventListeners
-$newJournalButton.addEventListener('click', function (e) {
+$($newJournalButton).click((e) => {
   showPage($gratefulDiv, $homeDiv);
   setHeaderID();
   const $nJHeader = document.createElement('li');
@@ -514,7 +513,7 @@ $newJournalButton.addEventListener('click', function (e) {
 
 
 
-$draftButton.addEventListener('click', function (e) {
+$($draftButton).click((e) => {
   showPage($draftDiv, $homeDiv);
   const $draftHeader = document.createElement('li');
   const $draftHeaderH2 = document.createElement('h2');
@@ -529,7 +528,7 @@ $draftButton.addEventListener('click', function (e) {
 });
 
 // gratefulDiv eventListeners
-$nJContButton.addEventListener('click', function (e) {
+$($nJContButton).click((e) => {
   e.preventDefault();
   showPage($NJDiv, $gratefulDiv);
   // eslint-disable-next-line no-undef
@@ -539,7 +538,7 @@ $nJContButton.addEventListener('click', function (e) {
   }
   });
 
-$doneButton.addEventListener('click', function (e) {
+$($doneButton).click((e) => {
   if (($NJTextCont.value.length) > 0) {
     e.preventDefault();
     if (drafts.editing !== null) {
@@ -559,7 +558,7 @@ $doneButton.addEventListener('click', function (e) {
 
 // draftDiv eventListeners
 
-$draftUl.addEventListener('click', (e) => {
+$($draftUl).click((e) => {
   const tar = e.target;
   if ((tar.getAttribute('data') !== null) && (tar.getAttribute('funct')!== null)){
   let tarNum = tar.getAttribute('data')
