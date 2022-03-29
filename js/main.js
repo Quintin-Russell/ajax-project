@@ -126,19 +126,14 @@ const removePageID = () => {
 
 const getScoreNum = (score) => {
   if (score === 'P+') {
-    // eslint-disable-next-line no-undef
     currentObj.scoreNum = 2;
   } else if (score === 'P') {
-    // eslint-disable-next-line no-undef
     currentObj.scoreNum = 1;
   } else if (score === 'NEU') {
-    // eslint-disable-next-line no-undef
     currentObj.scoreNum = 0;
   } else if (score === 'N') {
-    // eslint-disable-next-line no-undef
     currentObj.scoreNum = -1;
   } else if (score === 'N+') {
-    // eslint-disable-next-line no-undef
     currentObj.scoreNum = -2;
   } else {
     score = "NEU"
@@ -148,10 +143,8 @@ const getScoreNum = (score) => {
 
 const randQuote = (score) => {
   let quote = '';
-  // eslint-disable-next-line no-undef
   for (const key in quotes) {
     if (key === score) {
-      // eslint-disable-next-line no-undef
       const quoteArr = quotes[key];
       const index = Math.floor(Math.random() * (quoteArr.length - 1));
       quote = quoteArr[index];
@@ -163,21 +156,17 @@ const randQuote = (score) => {
 const afterAPI = () => {
   $5thingsForm.reset();
   $journalTextForm.reset();
-  // eslint-disable-next-line no-undef
   getScoreNum(currentObj.score);
-  // eslint-disable-next-line no-undef
   const modalScore = `Your Score: ${currentObj.scoreNum}`;
-  // eslint-disable-next-line no-undef
   const quote = randQuote(currentObj.score);
-  $scoreH1.textContent = modalScore;
-  $modalQuoteP.textContent = quote;
+  $($scoreH1).text(modalScore);
+  $($modalQuoteP).text(quote);
   removePageID();
-  // eslint-disable-next-line no-undef
   entries.push(currentObj);
   currentObj = null;
   showPage($modalDiv, $NJDiv);
 }
-// eslint-disable-next-line no-unused-vars
+
 const sendGraphAPI = (entries) => {
   const xlabels = [];
   const ylabels = [];
@@ -185,8 +174,7 @@ const sendGraphAPI = (entries) => {
     xlabels.push(ent.formattedDate);
     ylabels.push(ent.scoreNum);
   }
-  // eslint-disable-next-line no-unused-vars
-  const scatterChart = new Chart($graphCanv, { // eslint-disable no-undef
+  const scatterChart = new Chart($graphCanv, {
     type: 'line',
     data: {
       labels: xlabels,
@@ -230,7 +218,6 @@ const saveDraft = (event, arrPush) => {
 //  const hL = document.getElementById('header-logo');
       if (drafts.editing === null) {
         event.preventDefault();
-        // eslint-disable-next-line no-undef
         currentObj = new Entry();
         currentObj.draftNum = drafts.nextDraftNum
         drafts.nextDraftNum++
@@ -243,7 +230,6 @@ const saveDraft = (event, arrPush) => {
         if ($journalTextForm.value !== undefined) {
           currentObj.text = $journalTextForm.value;
         }
-        // eslint-disable-next-line no-undef
         if (arrPush !== null) {
           arrPush.push(currentObj);
         }
@@ -255,7 +241,6 @@ const saveDraft = (event, arrPush) => {
         if ($NJTextCont.value.length > 0) {
           drafts.editing.text = $NJTextCont.value;
         }
-        //find og drafts.editing obj in drafts.drafts and reassign
         for (let dr of drafts.drafts) {
           if (dr.draftNum === drafts.editing.draftNum) {
             dr = drafts.editing
@@ -280,62 +265,126 @@ const sendMoodReq = (text) => {
   fetch('https://api.meaningcloud.com/sentiment-2.1', requestOptions)
     .then(response => response.json())
     .then(responseJSON => {
-      // eslint-disable-next-line no-undef
       currentObj.response = responseJSON;
-      // eslint-disable-next-line no-undef
       currentObj.score = currentObj.response.score_tag;
       afterAPI();
-      // eslint-disable-next-line no-undef
       currentObj = null;
     })
-    // eslint-disable-next-line node/handle-callback-err
     .catch(error =>
       window.alert("We don't know what happened there, but something went wrong. Please try to submit again"));
 }
 
 const makeDraftBox = (draft) => {
-  const $draftImgDiv = document.createElement('div');
-  const $draftImg = document.createElement('img');
-  $draftImg.setAttribute('class', 'item-img');
-  $draftImg.setAttribute('src', 'images/ajax-logo.jpg');
-  $draftImg.setAttribute('alt', 'ajax-logo');
-  $draftImgDiv.appendChild($draftImg);
-  const $draftDivH2 = document.createElement('div');
-  const $draftH2 = document.createElement('h2');
-  $draftDivH2.setAttribute('class', 'container');
-  $draftH2.setAttribute('class', 'header-logo work-sans');
-  $draftH2.textContent = `Date: ${draft.formattedDate}`;
-  $draftDivH2.appendChild($draftH2);
+  // const $draftImgDiv = document.createElement('div');
 
-  const $draftOptionsDiv = document.createElement('div');
-  $draftOptionsDiv.setAttribute('class', 'row div-background small-margin')
-  const $draftIt = document.createElement('i');
-  $draftIt.setAttribute('class', 'fas fa-trash-alt');
-  $draftIt.setAttribute('data', draft.draftNum)
-  $draftIt.setAttribute('funct', 'delete')
-  const $draftIp = document.createElement('i');
-  $draftIp.setAttribute('class', 'fas fa-pen-fancy')
-  $draftIp.setAttribute('data', draft.draftNum)
-  $draftIp.setAttribute('funct', 'edit')
-  $draftOptionsDiv.appendChild($draftIt);
-  $draftOptionsDiv.appendChild($draftIp);
 
-  const $draftContDiv = document.createElement('div');
-  $draftContDiv.setAttribute('class', 'row div-background');
-  $draftContDiv.appendChild($draftImgDiv);
-  $draftContDiv.appendChild($draftDivH2);
+  // const $draftImg = document.createElement('img');
+  // $draftImg.setAttribute('class', 'item-img');
+  // $draftImg.setAttribute('src', 'images/ajax-logo.jpg');
+  // $draftImg.setAttribute('alt', 'ajax-logo');
+  // const $draftImg = $('<img></img>')
+  //   .attr({
+  //     src: 'images/ajax-logo.jpg',
+  //     alt, 'ajax-logo'
+  //   }).addClass('item-img');
 
-  const $draftFullContDiv = document.createElement('div');
-  $draftFullContDiv.setAttribute('class', 'container');
-  $draftFullContDiv.appendChild($draftContDiv);
-  $draftFullContDiv.appendChild($draftOptionsDiv);
+  // $draftImgDiv.appendChild($draftImg);
+  // const $draftImgDiv = $('<div></div>')
+  //   .append($draftImg);
 
-  const $draftLi = document.createElement('li');
-  $draftLi.setAttribute('class', 'container draft-li');
-  const draftId = draft.draftNum;
-  $draftLi.setAttribute('data', draftId);
-  $draftLi.appendChild($draftFullContDiv);
 
+
+  // const $draftH2 = document.createElement('h2');
+  // $draftH2.setAttribute('class', 'header-logo work-sans');
+  // $draftH2.textContent = `Date: ${draft.formattedDate}`;
+  // const $draftH2 = $('<h2></h2>')
+  //   .addClass('header-logo work-sans')
+  //   .text(`Date: ${draft.formattedDate}`)
+
+  // const $draftDivH2 = document.createElement('div');
+  // $draftDivH2.setAttribute('class', 'container');
+  // $draftDivH2.appendChild($draftH2);
+  // const $draftDivH2 = $('<div></div>')
+  //   .addClass('container')
+  //   .append($draftH2)
+
+  // const $draftIt = document.createElement('i');
+  // $draftIt.setAttribute('class', 'fas fa-trash-alt');
+  // $draftIt.setAttribute('data', draft.draftNum)
+  // $draftIt.setAttribute('funct', 'delete')
+  // const $draftIt = $('<i></></i>')
+  //   .addClass('fas fa-trash-alt')
+  //   .attr({
+  //     data: `${draft.draftNum}`,
+  //     funct: 'delete'
+  //   })
+
+  // const $draftIp = document.createElement('i');
+  // $draftIp.setAttribute('class', 'fas fa-pen-fancy')
+  // $draftIp.setAttribute('data', draft.draftNum)
+  // $draftIp.setAttribute('funct', 'edit')
+  // const $draftIp = $('<i></></i>')
+  //   .addClass('fas fa-pen-fancy')
+  //   .attr({
+  //     data: `${draft.draftNum}`,
+  //     funct: 'edit'
+  //   })
+
+  // const $draftOptionsDiv = document.createElement('div');
+  // $draftOptionsDiv.setAttribute('class', 'row div-background small-margin')
+  // $draftOptionsDiv.appendChild($draftIt);
+  // $draftOptionsDiv.appendChild($draftIp);
+  // const $draftOptionsDiv = $('<div></div>')
+  //   .addClass('row div-background small-margin')
+  //   .append()
+
+  // const $draftContDiv = document.createElement('div');
+  // $draftContDiv.setAttribute('class', 'row div-background');
+  // $draftContDiv.appendChild($draftImgDiv);
+  // $draftContDiv.appendChild($draftDivH2);
+
+  // const $draftFullContDiv = document.createElement('div');
+  // $draftFullContDiv.setAttribute('class', 'container');
+  // $draftFullContDiv.appendChild($draftContDiv);
+  // $draftFullContDiv.appendChild($draftOptionsDiv);
+
+  // const $draftLi = document.createElement('li');
+  // $draftLi.setAttribute('class', 'container draft-li');
+  // const draftId = draft.draftNum;
+  // $draftLi.setAttribute('data', draftId);
+  // $draftLi.appendChild($draftFullContDiv);
+
+  const $draftLi = `
+    <li class="container draft-li"
+    data=`${draft.draftNum}`>
+      <div class="container">
+        <div class="row div-background">
+          <div>
+            <img
+              class="item-img"
+              src="images/ajax-logo.jpg"
+              alt="ajax-logo"
+            />
+          </div>
+          <div class="container">
+            <h2 class="header-logo work-sans">
+              `Date: ${draft.formattedDate}`
+            </h2>
+          </div>
+        </div>
+          <div class="row div-background small-margin">
+            <i class="fas fa-trash-alt"
+              funct="delete"
+              data=`${draft.draftNum}`
+            ></i>
+            <i class="fas fa-pen-fancy"
+            funct="edit"
+            data=`${draft.draftNum}`
+            ></i>
+        </div>
+      </div>
+    </li>
+  `
 
   return $draftLi
 }
@@ -356,25 +405,37 @@ const journalContExists = () => {
 
 const compileDraftBoxes = () => {
   if (drafts.drafts.length > 0) {
-    const $noDraft = document.querySelector('[data="no-drafts"]');
+    const $noDraft = $('[data="no-drafts"]');
     if ($noDraft) {
-      $draftUl.removeChild($noDraft);
+      $($draftUl)
+        .remove($noDraft);
     }
     for (const dr of drafts.drafts) {
       if (!drafts.renderedTitles.includes(dr.draftNum)) {
       const $draftLi = makeDraftBox(dr, dr.draftNum);
       drafts.renderedTitles.push(dr.draftNum)
-      $draftUl.appendChild($draftLi);
+      $($draftUl)
+        .append($draftLi);
     }
     }
   } else {
-    let $noDraftP = document.createElement('p');
-    $noDraftP.setAttribute('class', 'roboto');
-    $noDraftP.textContent = "There are no saved drafts yet";
-    const $noDraftLi = document.createElement('li');
-    $noDraftLi.setAttribute('data', 'no-drafts')
-    $noDraftLi.appendChild($noDraftP);
-    $draftUl.appendChild($noDraftLi)
+    // let $noDraftP = document.createElement('p');
+    // $noDraftP.setAttribute('class', 'roboto');
+    // $noDraftP.textContent = "There are no saved drafts yet";
+
+    // const $noDraftLi = document.createElement('li');
+    // $noDraftLi.setAttribute('data', 'no-drafts')
+
+    // $noDraftLi.appendChild($noDraftP);
+    // $draftUl.appendChild($noDraftLi)
+
+    $($draftUl)
+      .append(`
+        <li data="no-drafts">
+          <p className="roboto">There are no saved drafts yet</p>
+        </li>
+        `
+        )
 
   }
 }
