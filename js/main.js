@@ -20,7 +20,6 @@ const $5thingsForm = $('#five-things');
 
 // const $journalTextForm = document.querySelector('#journal-cont');
 const $journalTextForm = $('#journal-cont');
-console.log('$journalTextForm:', $journalTextForm)
 
 // const $headerUl = document.querySelector('.header-list');
 const $headerUl = $('.header-list').first();
@@ -50,7 +49,6 @@ const $NJDiv = $('[data-view="new-journal"]').first();
 
 // const $NJTextCont = document.querySelector('#journal-cont-text');
 const $NJTextCont = $('#journal-cont-text');
-console.log('$NJTextCont:', $NJTextCont)
 
 // const $doneButton = document.querySelector('[button="done"]');
 const $doneButton = $('[button="done"]');
@@ -120,9 +118,9 @@ const getDate = () => {
 }
 
 const removePageID = () => {
-  if (($($headerUl).children.length) > 3) {
+  if (($($headerUl).children.length) > 1) {
     const $pgID = $('[data = "pg-ID"]');
-    $headerUl.remove($pgID);
+    $($headerUl).remove($pgID);
   }
 }
 
@@ -218,7 +216,7 @@ const sendGraphAPI = (entries) => {
 
 const saveDraft = (event, arrPush) => {
 //  const hL = document.getElementById('header-logo');
-      if (drafts.editing === null) {
+      if (!drafts.editing) {
         event.preventDefault();
         currentObj = new Entry();
         currentObj.draftNum = drafts.nextDraftNum
@@ -234,7 +232,7 @@ const saveDraft = (event, arrPush) => {
         if (arrPush !== null) {
           arrPush.push(currentObj);
         }
-      } else if (drafts.editing !== null) {
+      } else {
         for (let i = 0; i < ($5things.length - 1); i++) {
           drafts.editing.fiveThings[i] = $($5things[i]).val();
         }
@@ -440,13 +438,13 @@ const compileDraftBoxes = () => {
 
 const editDraft = (draft) => {
   let count = 0;
-    for (const txtBox of $fiveThings) {
-      txtBox.textContent = draft.fiveThings[count];
+    for (const txtBox of $5things) {
+      $(txtBox).val() = draft.fiveThings[count];
       count++
     }
-    $NJTextCont.textContent = drafts.editing.text
+    $($NJTextCont).val() = drafts.editing.text
     for ($dtH2 of $dateH2) {
-      $dtH2.textContent = draft.formattedDate;
+      $($dtH2).val() = draft.formattedDate;
     }
   }
 
@@ -632,13 +630,15 @@ $($nJContButton).click((e) => {
 $($doneButton).click((e) => {
   if (($($NJTextCont).val().length) > 0) {
     e.preventDefault();
-    if (drafts.editing !== null) {
+    if (drafts.editing) {
       currentObj = drafts.editing;
     }
-    currentObj.text = $($NJTextCont).text();
+    currentObj.text = $($NJTextCont).val();
     sendMoodReq(currentObj.text);
-    deleteDraft(drafts.editing)
-    drafts.editing = null;
+    if (drafts.editing) {
+      deleteDraft(drafts.editing)
+      drafts.editing = null;
+    }
     removeHeaderID();
   } else {
     window.alert("It looks like you forgot to write something. Tell us what's on your mind! (or save it as a draft for later)");
