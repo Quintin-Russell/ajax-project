@@ -654,10 +654,10 @@ $($doneButton).click((e) => {
 
 $($draftUl).click((e) => {
   const tar = e.target;
-  if ((tar.getAttribute('data') !== null) && (tar.getAttribute('funct')!== null)){
-  let tarNum = tar.getAttribute('data')
+  if ($(tar).attr('data') && $(tar).attr('funct')) {
+  let tarNum = $(tar).attr('data')
   tarNum = parseInt(tarNum)
-  const tarFunct = tar.getAttribute('funct')
+  const tarFunct = $(tar).attr('funct')
     for (const d of drafts.drafts) {
       if (d.draftNum === tarNum) {
         drafts.editing = d
@@ -669,20 +669,20 @@ $($draftUl).click((e) => {
       showPage($gratefulDiv,$draftDiv);
   } else if ((tarFunct === 'delete') && (drafts.editing !== null)){
     showPage($draftDeleteModal,$draftDivList);
-    const $modalDelBut = document.querySelector('[data="draftmodal-delete-but"]');
-    const $modalCanBut = document.querySelector('[data="draftmodal-cancel-but"]');
-    $draftDeleteModal.setAttribute('class', 'overlay')
-    $draftDeleteModalCont.setAttribute('class', 'container modal')
-    $draftDeleteModalCont.addEventListener('click', (event2) => {
+    const $modalDelBut = $('[data="draftmodal-delete-but"]');
+    const $modalCanBut = $('[data="draftmodal-cancel-but"]');
+    $($draftDeleteModal).attr('class', 'overlay')
+    $($draftDeleteModalCont).attr('class', 'container modal')
+      .click((event2) => {
       if ((event2.target === $modalDelBut) || (event2.target === $modalCanBut)) {
         if (event2.target === $modalDelBut) {
           deleteDraft(drafts.editing);
           showPage($draftDivList,$draftDeleteModal);
-          $draftDeleteModalCont.setAttribute('class', 'hidden');
+          $($draftDeleteModalCont).attr('class', 'hidden');
           drafts.editing = null
         } else {
           showPage($draftDivList, $draftDeleteModal);
-          $draftDeleteModalCont.setAttribute('class', 'hidden');
+          $($draftDeleteModalCont).attr('class', 'hidden');
           currentObj = null;
         }
       }
