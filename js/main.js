@@ -390,17 +390,15 @@ const makeDraftBox = (draft) => {
 }
 
 const journalContExists = () => {
-  let contentExists = false
-  for (const item of $5thingsForm) {
-    if (item.value.length > 0) {
-      contentExists = true
-      break
+  for (const item of $5things) {
+    if ($(item).text().length > 0) {
+      return true
     }
   }
-  if ((contentExists === false) && ($NJTextCont.value.length > 0)) {
-    contentExists = true;
+  if (($($NJTextCont).text().length > 0)) {
+    return true;
   }
-  return contentExists
+  return false
 }
 
 const compileDraftBoxes = () => {
@@ -625,7 +623,6 @@ $($draftButton).click((e) => {
 $($nJContButton).click((e) => {
   e.preventDefault();
   showPage($NJDiv, $gratefulDiv);
-  // eslint-disable-next-line no-undef
   saveDraft(e, null)
   if ((currentObj === null) && (drafts.editing !== null)) {
     currentObj = drafts.editing
