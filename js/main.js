@@ -94,8 +94,8 @@ let date;
 let formattedDate;
 
 const showPage = (show, hide) => {
-  show.toggleClass('container');
-  hide.toggleClass('hidden');
+  $(show).attr('class','container');
+  $(hide).attr('class', 'hidden');
 }
 
 const setHeaderID = () => {
@@ -356,7 +356,7 @@ const makeDraftBox = (draft) => {
 
   const $draftLi = `
     <li class="container draft-li"
-    data=`${draft.draftNum}`>
+    data=${draft.draftNum}>
       <div class="container">
         <div class="row div-background">
           <div>
@@ -368,18 +368,18 @@ const makeDraftBox = (draft) => {
           </div>
           <div class="container">
             <h2 class="header-logo work-sans">
-              `Date: ${draft.formattedDate}`
+              Date: ${draft.formattedDate}
             </h2>
           </div>
         </div>
           <div class="row div-background small-margin">
             <i class="fas fa-trash-alt"
               funct="delete"
-              data=`${draft.draftNum}`
+              data=${draft.draftNum}
             ></i>
             <i class="fas fa-pen-fancy"
             funct="edit"
-            data=`${draft.draftNum}`
+            data=${draft.draftNum}
             ></i>
         </div>
       </div>
@@ -454,17 +454,18 @@ const editDraft = (draft) => {
 
 const deleteDraft = (draft) => {
   const drNum = draft.draftNum;
-  const $drLi = document.querySelector(`[data="${drNum}"]`);
+  // const $drLi = document.querySelector(`[data="${drNum}"]`);
+  const $drLi = $(`[data="${drNum}"]`);
   const COIndexDr = drafts.drafts.indexOf(draft);
   const COIndexRT = drafts.renderedTitles.indexOf(drNum);
   if ((COIndexDr > -1) && (COIndexRT > -1)) {
     drafts.drafts.splice(COIndexDr,1);
     drafts.renderedTitles.splice(COIndexRT,1);
-    $draftUl.removeChild($drLi)
+    $($draftUl).remove($drLi)
   }
 }
 
-window.addEventListener('click', (e) => {
+$(window).click((e) => {
   for (const sm of $saveDraftButton) {
     if (e.target === sm) {
       const contExists = journalContExists();
@@ -489,10 +490,9 @@ window.addEventListener('click', (e) => {
 
 $($headerLogo).click((e) => {
   const event = e;
-  const hL = document.getElementById('header-logo');
-  const contentExists = journalContExists();
-  if ((hL !== null) && ($graphDiv.attributes.class.value === 'hidden')) {
-    if (contentExists === true) {
+  const hL = $('#header-logo');
+  if ((hL !== null) && ($($graphDiv).attr('class') === 'hidden')) {
+    if (journalContExists() === true) {
     window.alert('Your journal entry was saved as a draft!');
      saveDraft(event, drafts.drafts)
       drafts.editing = null
@@ -513,7 +513,7 @@ $($headerLogo).click((e) => {
   }
   });
 
-window.addEventListener('click', (e) => {
+$(window).click((e) => {
   for (const gr of $graphButton){
     if (e.target == gr) {
     for (const pg of $pgList) {
@@ -521,23 +521,38 @@ window.addEventListener('click', (e) => {
     removePageID();
     showPage($graphDiv, pg);
   }
-      showPage($graphDiv, $homeDiv)
+  showPage($graphDiv, $homeDiv)
   setHeaderID();
-  const $nJHeader = document.createElement('li');
-  const $nJHeaderH2 = document.createElement('h2');
-  $nJHeaderH2.textContent = 'MoodGraph';
-  $nJHeader.setAttribute('data', 'pg-ID');
-  $nJHeader.appendChild($nJHeaderH2);
-  $headerUl.appendChild($nJHeader);
-  $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
-  $headerLogo.setAttribute('class', 'header-logo work-sans');
+  // const $nJHeaderH2 = document.createElement('h2');
+  // $nJHeaderH2.textContent = 'MoodGraph';
+  // $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
+
+
+
+  // const $nJHeader = document.createElement('li');
+  // $nJHeader.setAttribute('data', 'pg-ID');
+  // $nJHeader.appendChild($nJHeaderH2);
+
+
+
+  // $headerUl.appendChild($nJHeader);
+
+  $($headerUl).append(`
+    <li data="pg-ID">
+      <h2 class='new-journal-header work-sans'>MoodGraph</h2>
+    </li>
+    `
+  )
+
+  // $headerLogo.setAttribute('class', 'header-logo work-sans');
+  $($headerLogo).attr('header-logo work-sans')
   // eslint-disable-next-line no-undef
   sendGraphAPI(entries);
   }
     }
 });
 
-window.addEventListener('click', (e) => {
+$(window).click((e) => {
   for (const but of $homeButton) {
     if (e.target === but) {
       for (const pg of $pgList) {
@@ -554,21 +569,29 @@ window.addEventListener('click', (e) => {
 $($newJournalButton).click((e) => {
   showPage($gratefulDiv, $homeDiv);
   setHeaderID();
-  const $nJHeader = document.createElement('li');
-  const $nJHeaderH2 = document.createElement('h2');
+  // $headerUl.appendChild($nJHeader);
+  $($headerUl).append(`
+    <li data='pg-ID'>
+      <h2 class='new-journal-header work-sans'>New Journal Entry</h2>
+    </li>
+    `
+  )
+  // const $nJHeader = document.createElement('li');
+  //   $nJHeader.setAttribute('data', 'pg-ID');
+  //   $nJHeader.appendChild($nJHeaderH2);
+
+  // const $nJHeaderH2 = document.createElement('h2');
+  //  $nJHeaderH2.textContent = 'New Journal Entry';
+  //   $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
   getDate();
-  $nJHeaderH2.textContent = 'New Journal Entry';
-  $nJHeader.setAttribute('data', 'pg-ID');
-  $nJHeader.appendChild($nJHeaderH2);
-  $headerUl.appendChild($nJHeader);
-  $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
-  $headerLogo.setAttribute('class', 'header-logo work-sans');
-  let item;
-  for (item of $dateH2) {
-    item.textContent = 'Date: ' + formattedDate;
+
+  $($headerLogo).attr('class', 'header-logo work-sans');
+
+  for (let item of $dateH2) {
+    $(item).text(`Date: ${formattedDate}`);
   }
-  for (const item of $fiveThings) {
-    item.textContent = "";
+  for (const item of $5things) {
+    $(item).text("");
   }
 });
 
@@ -576,14 +599,24 @@ $($newJournalButton).click((e) => {
 
 $($draftButton).click((e) => {
   showPage($draftDiv, $homeDiv);
-  const $draftHeader = document.createElement('li');
-  const $draftHeaderH2 = document.createElement('h2');
-  $draftHeaderH2.textContent = 'Drafts';
-  $draftHeader.setAttribute('data', 'pg-ID');
-  $draftHeader.appendChild($draftHeaderH2);
-  $headerUl.appendChild($draftHeader);
-  $draftHeaderH2.setAttribute('class', 'new-journal-header work-sans');
-  $headerLogo.setAttribute('class', 'header-logo work-sans');
+  $($headerUl).append(`
+    <li data='pg-ID'>
+      <h2 class='new-journal-header work-sans'>Drafts</h2>
+    </li>
+    `
+  );
+
+  // const $draftHeader = document.createElement('li');
+  // $draftHeader.setAttribute('data', 'pg-ID');
+  // $draftHeader.appendChild($draftHeaderH2);
+
+  // const $draftHeaderH2 = document.createElement('h2');
+  // $draftHeaderH2.textContent = 'Drafts';
+  // $draftHeaderH2.setAttribute('class', 'new-journal-header work-sans');
+
+
+  $($headerLogo).attr('class', 'header-logo work-sans');
+
   setHeaderID();
   compileDraftBoxes();
 });
