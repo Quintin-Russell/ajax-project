@@ -633,13 +633,13 @@ $($nJContButton).click((e) => {
   });
 
 $($doneButton).click((e) => {
-  if (($NJTextCont.value.length) > 0) {
+  if (($($NJTextCont).text().length) > 0) {
     e.preventDefault();
     if (drafts.editing !== null) {
       currentObj = drafts.editing;
     }
     // eslint-disable-next-line no-undef
-    currentObj.text = $NJTextCont.value;
+    currentObj.text = $($NJTextCont).text();
     // eslint-disable-next-line no-undef
     sendMoodReq(currentObj.text);
     deleteDraft(drafts.editing)
