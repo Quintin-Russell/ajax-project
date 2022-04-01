@@ -20,6 +20,7 @@ const $5thingsForm = $('#five-things');
 
 // const $journalTextForm = document.querySelector('#journal-cont');
 const $journalTextForm = $('#journal-cont');
+console.log('$journalTextForm:', $journalTextForm)
 
 // const $headerUl = document.querySelector('.header-list');
 const $headerUl = $('.header-list').first();
@@ -42,13 +43,14 @@ const $nJContButton = $('[button = "new-journal-cont"]');
 // const $grateful4 = document.getElementById('grateful4');
 // const $grateful5 = document.getElementById('grateful5');
 // const $fiveThings = [$grateful1, $grateful2, $grateful3, $grateful4, $grateful5];
-const $5things = $("ul#grateful-ul li")
+const $5things = $("ul#grateful-ul li textarea")
 
 // const $NJDiv = document.querySelector('[data-view="new-journal"]');
 const $NJDiv = $('[data-view="new-journal"]').first();
 
 // const $NJTextCont = document.querySelector('#journal-cont-text');
 const $NJTextCont = $('#journal-cont-text');
+console.log('$NJTextCont:', $NJTextCont)
 
 // const $doneButton = document.querySelector('[button="done"]');
 const $doneButton = $('[button="done"]');
@@ -223,23 +225,21 @@ const saveDraft = (event, arrPush) => {
         drafts.nextDraftNum++
         currentObj.title = date;
         currentObj.formattedDate = formattedDate;
-        for (const item of $fiveThings) {
-          const txt = item.value;
-          currentObj.fiveThings.push(txt);
+        for (const item of $5things) {
+          currentObj.fiveThings.push(`${$(item).val()}`);
         }
         if ($journalTextForm.value !== undefined) {
-          currentObj.text = $journalTextForm.value;
+          currentObj.text = $($journalTextForm).val();
         }
         if (arrPush !== null) {
           arrPush.push(currentObj);
         }
       } else if (drafts.editing !== null) {
-        for (let i = 0; i < ($fiveThings.length - 1); i++) {
-          const txt = $fiveThings[i].value;
-          drafts.editing.fiveThings[i] = txt;
+        for (let i = 0; i < ($5things.length - 1); i++) {
+          drafts.editing.fiveThings[i] = $($5things[i]).val();
         }
-        if ($NJTextCont.value.length > 0) {
-          drafts.editing.text = $NJTextCont.value;
+        if ($($NJTextCont).val().length > 0) {
+          drafts.editing.text = $($NJTextCont).val();
         }
         for (let dr of drafts.drafts) {
           if (dr.draftNum === drafts.editing.draftNum) {
@@ -630,14 +630,12 @@ $($nJContButton).click((e) => {
   });
 
 $($doneButton).click((e) => {
-  if (($($NJTextCont).text().length) > 0) {
+  if (($($NJTextCont).val().length) > 0) {
     e.preventDefault();
     if (drafts.editing !== null) {
       currentObj = drafts.editing;
     }
-    // eslint-disable-next-line no-undef
     currentObj.text = $($NJTextCont).text();
-    // eslint-disable-next-line no-undef
     sendMoodReq(currentObj.text);
     deleteDraft(drafts.editing)
     drafts.editing = null;
