@@ -20,6 +20,7 @@
 
 .modal {
     background-color: white;
+    filter: drop-shadow(2px 4px 6px black);
 }
 
 .roboto {
@@ -93,7 +94,7 @@
 
 #header-logo:hover {
   cursor: pointer;
-  background-color: black;
+  text-decoration: underline;
 }
 
 .sm-button:hover,

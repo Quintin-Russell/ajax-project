@@ -17,6 +17,7 @@ const $gratefulDiv = $('[data-view = "grateful"]');
 
 // const $5thingsForm = document.getElementById('five-things');
 const $5thingsForm = $('#five-things');
+console.log('5thingsForm:', $5thingsForm)
 
 // const $journalTextForm = document.querySelector('#journal-cont');
 const $journalTextForm = $('#journal-cont');
@@ -154,8 +155,8 @@ const randQuote = (score) => {
 }
 
 const afterAPI = () => {
-  $5thingsForm.reset();
-  $journalTextForm.reset();
+  $($5thingsForm)[0].reset();
+  $($journalTextForm)[0].reset();
   getScoreNum(currentObj.score);
   const modalScore = `Your Score: ${currentObj.scoreNum}`;
   const quote = randQuote(currentObj.score);
@@ -268,8 +269,9 @@ const sendMoodReq = (text) => {
       afterAPI();
       currentObj = null;
     })
-    .catch(error =>
-      window.alert("We don't know what happened there, but something went wrong. Please try to submit again"));
+    .catch(error =>{
+      console.log('error in submit:', error)
+      window.alert("We don't know what happened there, but something went wrong. Please try to submit again")});
 }
 
 const makeDraftBox = (draft) => {
@@ -474,8 +476,8 @@ $(window).click((e) => {
           removePageID();
           showPage($homeDiv, pg);
         }
-        $journalTextForm.reset();
-        $5thingsForm.reset();
+          $($journalTextForm)[0].reset();
+          $($5thingsForm)[0].reset();
             break
         } else {
           window.alert(`There is nothing to save! We'll take you back to the home page so you can come back to this later`)
@@ -498,8 +500,8 @@ $($headerLogo).click((e) => {
         removePageID();
         showPage($homeDiv, pg);
       }
-      $journalTextForm.reset();
-      $5thingsForm.reset();
+      $($journalTextForm)[0].reset();
+      $($5thingsForm)[0].reset();
     } else {
       for (const page of $pgList) {
         showPage($homeDiv, page);
