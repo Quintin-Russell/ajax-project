@@ -214,8 +214,9 @@ const sendGraphAPI = (entries) => {
   });
 }
 
+//left off here 4/2/22 trying to access text field value to add to draft obj and save
 const saveDraft = (event, arrPush) => {
-//  const hL = document.getElementById('header-logo');
+  // console.log('drafts.editing:', drafts.editing)
       if (!drafts.editing) {
         event.preventDefault();
         currentObj = new Entry();
@@ -226,25 +227,24 @@ const saveDraft = (event, arrPush) => {
         for (const item of $5things) {
           currentObj.fiveThings.push(`${$(item).val()}`);
         }
-        if ($journalTextForm.value !== undefined) {
-          currentObj.text = $($journalTextForm).val();
-        }
-        if (arrPush !== null) {
+        const $journalText = $('textarea#journal-cont-text')
+        // console.log('$journalText:', $($journalText))
+        // console.log('$journalText.val():', $journalText.val())
+        if ($($journalTextForm).val()) currentObj.text = $($journalTextForm).val();
+
+        if (arrPush) {
           arrPush.push(currentObj);
         }
       } else {
         for (let i = 0; i < ($5things.length - 1); i++) {
           drafts.editing.fiveThings[i] = $($5things[i]).val();
         }
-        if ($($NJTextCont).val().length > 0) {
-          drafts.editing.text = $($NJTextCont).val();
-        }
-        for (let dr of drafts.drafts) {
-          if (dr.draftNum === drafts.editing.draftNum) {
-            dr = drafts.editing
-          }
-        }
 
+        if ($($NJTextCont).val().length > 0) drafts.editing.text = $($NJTextCont).val();
+
+        for (let dr of drafts.drafts) {
+          if (dr.draftNum === drafts.editing.draftNum) dr = drafts.editing
+        }
       }
 }
 
@@ -457,7 +457,7 @@ const deleteDraft = (draft) => {
   if ((COIndexDr > -1) && (COIndexRT > -1)) {
     drafts.drafts.splice(COIndexDr,1);
     drafts.renderedTitles.splice(COIndexRT,1);
-    $($draftUl).remove($drLi)
+    $($drLi).remove()
   }
 }
 
@@ -647,24 +647,20 @@ $($draftUl).click((e) => {
   let tarNum = $(tar).attr('data')
   tarNum = parseInt(tarNum)
   const tarFunct = $(tar).attr('funct')
-    for (const d of drafts.drafts) {
-      if (d.draftNum === tarNum) {
-        drafts.editing = d
-        break
-      }
-  }
-    if ((tarFunct === 'edit') && (drafts.editing !== null)) {
+  const d = drafts.drafts.find((d) => d.draftNum === tarNum)
+  if (d) drafts.editing = d
+    if ((tarFunct === 'edit') && (drafts.editing)) {
       editDraft(drafts.editing);
       showPage($gratefulDiv,$draftDiv);
-  } else if ((tarFunct === 'delete') && (drafts.editing !== null)){
+  } else if ((tarFunct === 'delete') && (drafts.editing)){
     showPage($draftDeleteModal,$draftDivList);
     const $modalDelBut = $('[data="draftmodal-delete-but"]');
     const $modalCanBut = $('[data="draftmodal-cancel-but"]');
     $($draftDeleteModal).attr('class', 'overlay')
     $($draftDeleteModalCont).attr('class', 'container modal')
       .click((event2) => {
-      if ((event2.target === $modalDelBut) || (event2.target === $modalCanBut)) {
-        if (event2.target === $modalDelBut) {
+      if ((event2.target === $modalDelBut[0]) || (event2.target === $modalCanBut[0])) {
+        if (event2.target === $modalDelBut[0]) {
           deleteDraft(drafts.editing);
           showPage($draftDivList,$draftDeleteModal);
           $($draftDeleteModalCont).attr('class', 'hidden');
