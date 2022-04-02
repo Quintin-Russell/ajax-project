@@ -439,12 +439,12 @@ const compileDraftBoxes = () => {
 const editDraft = (draft) => {
   let count = 0;
     for (const txtBox of $5things) {
-      $(txtBox).val() = draft.fiveThings[count];
+      $(txtBox).val(draft.fiveThings[count]);
       count++
     }
-    $($NJTextCont).val() = drafts.editing.text
+  $($NJTextCont).val(drafts.editing.text)
     for ($dtH2 of $dateH2) {
-      $($dtH2).val() = draft.formattedDate;
+      $($dtH2).val(draft.formattedDate);
     }
   }
 
@@ -492,15 +492,11 @@ $($headerLogo).click((e) => {
       saveDraft(e, drafts.drafts)
       drafts.editing = null
       currentObj = null;
-      for (const pg of $pgList) {
-        showPage($homeDiv, pg);
-      }
       $($journalTextForm)[0].reset();
       $($5thingsForm)[0].reset();
-    } else {
-      for (const page of $pgList) {
-        showPage($homeDiv, page);
-      }
+    }
+    for (const page of $pgList) {
+      showPage($homeDiv, page);
     }
     removeHeaderID();
     removePageID();
