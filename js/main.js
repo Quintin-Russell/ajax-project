@@ -486,15 +486,13 @@ $(window).click((e) => {
 
 $($headerLogo).click((e) => {
   const hL = $('#header-logo');
-  if ((hL !== null) && ($($graphDiv).attr('class') === 'hidden')) {
-    if (journalContExists()) {
+  if ((hL)) {
+    if (journalContExists() && ($($graphDiv).attr('class') === 'hidden')) {
       window.alert('Your journal entry was saved as a draft!');
       saveDraft(e, drafts.drafts)
       drafts.editing = null
       currentObj = null;
       for (const pg of $pgList) {
-        removeHeaderID();
-        removePageID();
         showPage($homeDiv, pg);
       }
       $($journalTextForm)[0].reset();
