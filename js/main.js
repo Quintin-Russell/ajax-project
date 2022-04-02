@@ -17,7 +17,6 @@ const $gratefulDiv = $('[data-view = "grateful"]');
 
 // const $5thingsForm = document.getElementById('five-things');
 const $5thingsForm = $('#five-things');
-console.log('5thingsForm:', $5thingsForm)
 
 // const $journalTextForm = document.querySelector('#journal-cont');
 const $journalTextForm = $('#journal-cont');
@@ -121,7 +120,7 @@ const getDate = () => {
 const removePageID = () => {
   if (($($headerUl).children.length) > 1) {
     const $pgID = $('[data = "pg-ID"]');
-    $($headerUl).remove($pgID);
+    $($pgID).remove();
   }
 }
 
@@ -270,7 +269,6 @@ const sendMoodReq = (text) => {
       currentObj = null;
     })
     .catch(error =>{
-      console.log('error in submit:', error)
       window.alert("We don't know what happened there, but something went wrong. Please try to submit again")});
 }
 
@@ -487,12 +485,11 @@ $(window).click((e) => {
 });
 
 $($headerLogo).click((e) => {
-  const event = e;
   const hL = $('#header-logo');
   if ((hL !== null) && ($($graphDiv).attr('class') === 'hidden')) {
-    if (journalContExists() === true) {
-    window.alert('Your journal entry was saved as a draft!');
-     saveDraft(event, drafts.drafts)
+    if (journalContExists()) {
+      window.alert('Your journal entry was saved as a draft!');
+      saveDraft(e, drafts.drafts)
       drafts.editing = null
       currentObj = null;
       for (const pg of $pgList) {
@@ -507,7 +504,8 @@ $($headerLogo).click((e) => {
         showPage($homeDiv, page);
       }
     }
-
+    removeHeaderID();
+    removePageID();
   }
   });
 
