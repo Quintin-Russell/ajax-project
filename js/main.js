@@ -1,89 +1,55 @@
-/*eslint-disable */
-
-// const $newJournalButton = document.querySelector('[button = "new-journal"]');
 const $newJournalButton = $("[button='new-journal']")
 
-// const $draftButton = document.querySelector('[button = "drafts"]');
 const $draftButton = $('[button = "drafts"]')
 
-// const $graphButton = document.querySelectorAll('[button = "view-moodgraph"]');
 const $graphButton = $('[button = "view-moodgraph"]')
 
-// const $homeDiv = document.querySelector('[data-view = "home-screen"]');
 const $homeDiv = $('[data-view = "home-screen"]');
 
-// const $gratefulDiv = document.querySelector('[data-view = "grateful"]');
 const $gratefulDiv = $('[data-view = "grateful"]');
 
-// const $5thingsForm = document.getElementById('five-things');
 const $5thingsForm = $('#five-things');
 
-// const $journalTextForm = document.querySelector('#journal-cont');
 const $journalTextForm = $('#journal-cont');
 
-// const $headerUl = document.querySelector('.header-list');
 const $headerUl = $('.header-list').first();
 
-// const $headerLogo = document.querySelector('[data = "header-logo"]');
 const $headerLogo = $('[data = "header-logo"]')
 
-// const $dateH2 = document.querySelectorAll('[data="date"]');
 const $dateH2 = $('[data="date"]');
 
-// const $saveDraftButton = document.querySelectorAll('[button = "save-draft"]');
 const $saveDraftButton = $('[button = "save-draft"]');
 
-// const $nJContButton = document.querySelector('[button = "new-journal-cont"]');
 const $nJContButton = $('[button = "new-journal-cont"]');
 
-// const $grateful1 = document.getElementById('grateful1');
-// const $grateful2 = document.getElementById('grateful2');
-// const $grateful3 = document.getElementById('grateful3');
-// const $grateful4 = document.getElementById('grateful4');
-// const $grateful5 = document.getElementById('grateful5');
-// const $fiveThings = [$grateful1, $grateful2, $grateful3, $grateful4, $grateful5];
 const $5things = $("ul#grateful-ul li textarea")
 
-// const $NJDiv = document.querySelector('[data-view="new-journal"]');
 const $NJDiv = $('[data-view="new-journal"]').first();
 
-// const $NJTextCont = document.querySelector('#journal-cont-text');
 const $NJTextCont = $('#journal-cont-text');
 
-// const $doneButton = document.querySelector('[button="done"]');
 const $doneButton = $('[button="done"]');
 
-// const $modalDiv = document.querySelector('[data-view="done-modal"]');
 const $modalDiv = $('[data-view="done-modal"]');
 
-// const $scoreH1 = document.querySelector('[data="modal-score"]');
 const $scoreH1 = $('[data="modal-score"]');
 
-// const $modalQuoteP = document.querySelector('[data="modal-quote"]');
 const $modalQuoteP = $('[data="modal-quote"]');
 
-// const $homeButton = document.querySelectorAll('[button="home"]');
 const $homeButton = $('[button="home"]');
 
-// const $graphDiv = document.querySelector('[data-view ="graph"]');
 const $graphDiv = $('[data-view ="graph"]');
 
-// const $graphCanv = document.querySelector('#myChart');
 const $graphCanv = $('#myChart');
 
-// const $draftDiv = document.querySelector('[data-view = "draft"]');
 const $draftDiv = $('[data-view = "draft"]');
 
-// const $draftUl = document.querySelector('[data="draft-ul"]');
 const $draftUl = $('[data="draft-ul"]');
 
-// const $draftDivList = document.querySelector('[data="draft-list"]');
 const $draftDivList = $('[data="draft-list"]');
 
-// const $draftDeleteModal = document.querySelector('[data="draft-delete-modal"]');
 const $draftDeleteModal = $('[data="draft-delete-modal"]');
 
-// const $draftDeleteModalCont = document.querySelector('[data="draft-delete-cont"]');
 const $draftDeleteModalCont = $('[data="draft-delete-cont"]');
 
 const $pgList = [$gratefulDiv, $NJDiv, $modalDiv, $graphDiv, $draftDiv, $draftDeleteModalCont, $draftDeleteModal];
@@ -273,85 +239,6 @@ const sendMoodReq = (text) => {
 }
 
 const makeDraftBox = (draft) => {
-  // const $draftImgDiv = document.createElement('div');
-
-
-  // const $draftImg = document.createElement('img');
-  // $draftImg.setAttribute('class', 'item-img');
-  // $draftImg.setAttribute('src', 'images/ajax-logo.jpg');
-  // $draftImg.setAttribute('alt', 'ajax-logo');
-  // const $draftImg = $('<img></img>')
-  //   .attr({
-  //     src: 'images/ajax-logo.jpg',
-  //     alt, 'ajax-logo'
-  //   }).addClass('item-img');
-
-  // $draftImgDiv.appendChild($draftImg);
-  // const $draftImgDiv = $('<div></div>')
-  //   .append($draftImg);
-
-
-
-  // const $draftH2 = document.createElement('h2');
-  // $draftH2.setAttribute('class', 'header-logo work-sans');
-  // $draftH2.textContent = `Date: ${draft.formattedDate}`;
-  // const $draftH2 = $('<h2></h2>')
-  //   .addClass('header-logo work-sans')
-  //   .text(`Date: ${draft.formattedDate}`)
-
-  // const $draftDivH2 = document.createElement('div');
-  // $draftDivH2.setAttribute('class', 'container');
-  // $draftDivH2.appendChild($draftH2);
-  // const $draftDivH2 = $('<div></div>')
-  //   .addClass('container')
-  //   .append($draftH2)
-
-  // const $draftIt = document.createElement('i');
-  // $draftIt.setAttribute('class', 'fas fa-trash-alt');
-  // $draftIt.setAttribute('data', draft.draftNum)
-  // $draftIt.setAttribute('funct', 'delete')
-  // const $draftIt = $('<i></></i>')
-  //   .addClass('fas fa-trash-alt')
-  //   .attr({
-  //     data: `${draft.draftNum}`,
-  //     funct: 'delete'
-  //   })
-
-  // const $draftIp = document.createElement('i');
-  // $draftIp.setAttribute('class', 'fas fa-pen-fancy')
-  // $draftIp.setAttribute('data', draft.draftNum)
-  // $draftIp.setAttribute('funct', 'edit')
-  // const $draftIp = $('<i></></i>')
-  //   .addClass('fas fa-pen-fancy')
-  //   .attr({
-  //     data: `${draft.draftNum}`,
-  //     funct: 'edit'
-  //   })
-
-  // const $draftOptionsDiv = document.createElement('div');
-  // $draftOptionsDiv.setAttribute('class', 'row div-background small-margin')
-  // $draftOptionsDiv.appendChild($draftIt);
-  // $draftOptionsDiv.appendChild($draftIp);
-  // const $draftOptionsDiv = $('<div></div>')
-  //   .addClass('row div-background small-margin')
-  //   .append()
-
-  // const $draftContDiv = document.createElement('div');
-  // $draftContDiv.setAttribute('class', 'row div-background');
-  // $draftContDiv.appendChild($draftImgDiv);
-  // $draftContDiv.appendChild($draftDivH2);
-
-  // const $draftFullContDiv = document.createElement('div');
-  // $draftFullContDiv.setAttribute('class', 'container');
-  // $draftFullContDiv.appendChild($draftContDiv);
-  // $draftFullContDiv.appendChild($draftOptionsDiv);
-
-  // const $draftLi = document.createElement('li');
-  // $draftLi.setAttribute('class', 'container draft-li');
-  // const draftId = draft.draftNum;
-  // $draftLi.setAttribute('data', draftId);
-  // $draftLi.appendChild($draftFullContDiv);
-
   const $draftLi = `
     <li class="container draft-li"
     data=${draft.draftNum}>
@@ -415,16 +302,6 @@ const compileDraftBoxes = () => {
     }
     }
   } else {
-    // let $noDraftP = document.createElement('p');
-    // $noDraftP.setAttribute('class', 'roboto');
-    // $noDraftP.textContent = "There are no saved drafts yet";
-
-    // const $noDraftLi = document.createElement('li');
-    // $noDraftLi.setAttribute('data', 'no-drafts')
-
-    // $noDraftLi.appendChild($noDraftP);
-    // $draftUl.appendChild($noDraftLi)
-
     $($draftUl)
       .append(`
         <li data="no-drafts">
@@ -450,7 +327,6 @@ const editDraft = (draft) => {
 
 const deleteDraft = (draft) => {
   const drNum = draft.draftNum;
-  // const $drLi = document.querySelector(`[data="${drNum}"]`);
   const $drLi = $(`[data="${drNum}"]`);
   const COIndexDr = drafts.drafts.indexOf(draft);
   const COIndexRT = drafts.renderedTitles.indexOf(drNum);
@@ -513,19 +389,6 @@ $(window).click((e) => {
   }
   showPage($graphDiv, $homeDiv)
   setHeaderID();
-  // const $nJHeaderH2 = document.createElement('h2');
-  // $nJHeaderH2.textContent = 'MoodGraph';
-  // $nJHeaderH2.setAttribute('class', 'new-journal-header work-sans');
-
-
-
-  // const $nJHeader = document.createElement('li');
-  // $nJHeader.setAttribute('data', 'pg-ID');
-  // $nJHeader.appendChild($nJHeaderH2);
-
-
-
-  // $headerUl.appendChild($nJHeader);
 
   $($headerUl).append(`
     <li data="pg-ID">
@@ -533,10 +396,7 @@ $(window).click((e) => {
     </li>
     `
   )
-
-  // $headerLogo.setAttribute('class', 'header-logo work-sans');
   $($headerLogo).attr('header-logo work-sans')
-  // eslint-disable-next-line no-undef
   sendGraphAPI(entries);
   }
     }
@@ -595,15 +455,6 @@ $($draftButton).click((e) => {
     </li>
     `
   );
-
-  // const $draftHeader = document.createElement('li');
-  // $draftHeader.setAttribute('data', 'pg-ID');
-  // $draftHeader.appendChild($draftHeaderH2);
-
-  // const $draftHeaderH2 = document.createElement('h2');
-  // $draftHeaderH2.textContent = 'Drafts';
-  // $draftHeaderH2.setAttribute('class', 'new-journal-header work-sans');
-
 
   $($headerLogo).attr('class', 'header-logo work-sans');
 
