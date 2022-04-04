@@ -214,9 +214,8 @@ const sendGraphAPI = (entries) => {
   });
 }
 
-//left off here 4/2/22 trying to access text field value to add to draft obj and save
 const saveDraft = (event, arrPush) => {
-  // console.log('drafts.editing:', drafts.editing)
+      const draftsLenBefore = drafts.drafts.length
       if (!drafts.editing) {
         event.preventDefault();
         currentObj = new Entry();
@@ -228,9 +227,7 @@ const saveDraft = (event, arrPush) => {
           currentObj.fiveThings.push(`${$(item).val()}`);
         }
         const $journalText = $('textarea#journal-cont-text')
-        // console.log('$journalText:', $($journalText))
-        // console.log('$journalText.val():', $journalText.val())
-        if ($($journalTextForm).val()) currentObj.text = $($journalTextForm).val();
+        currentObj.text = $($journalText).val();
 
         if (arrPush) {
           arrPush.push(currentObj);
@@ -245,6 +242,9 @@ const saveDraft = (event, arrPush) => {
         for (let dr of drafts.drafts) {
           if (dr.draftNum === drafts.editing.draftNum) dr = drafts.editing
         }
+      }
+      if (draftsLenBefore !== drafts.drafts.length && arrPush) {
+        alert('Your journal entry was saved as a draft!')
       }
 }
 
@@ -389,11 +389,11 @@ const makeDraftBox = (draft) => {
 
 const journalContExists = () => {
   for (const item of $5things) {
-    if ($(item).text().length > 0) {
+    if ($(item).val().length > 0) {
       return true
     }
   }
-  if (($($NJTextCont).text().length > 0)) {
+  if (($($NJTextCont).val().length > 0)) {
     return true;
   }
   return false
@@ -464,23 +464,23 @@ const deleteDraft = (draft) => {
 $(window).click((e) => {
   for (const sm of $saveDraftButton) {
     if (e.target === sm) {
-      const contExists = journalContExists();
-        if (contExists === true){
-          saveDraft(e, drafts.drafts);
-        drafts.editing = null
-        currentObj = null;
         for (const pg of $pgList) {
           removeHeaderID();
           removePageID();
           showPage($homeDiv, pg);
         }
+        if (journalContExists()){
+          saveDraft(e, drafts.drafts);
+          drafts.editing = null
+          currentObj = null;
           $($journalTextForm)[0].reset();
           $($5thingsForm)[0].reset();
             break
         } else {
           window.alert(`There is nothing to save! We'll take you back to the home page so you can come back to this later`)
         }
-    }
+
+      }
   }
 });
 
@@ -616,7 +616,7 @@ $($nJContButton).click((e) => {
   e.preventDefault();
   showPage($NJDiv, $gratefulDiv);
   saveDraft(e, null)
-  if ((currentObj === null) && (drafts.editing !== null)) {
+  if ((!currentObj) && (drafts.editing)) {
     currentObj = drafts.editing
   }
   });
