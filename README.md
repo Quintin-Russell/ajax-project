@@ -12,6 +12,7 @@
 - JavaScript ES6 (including jQuery)
   - DOM manipulation using jQuery
   - localStorage to save and retrieve session data 
+  - asynhronous fetch requests to a RESTfulAPI
 - HTML
 - CSS3
 
