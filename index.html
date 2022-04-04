@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta property="og:title" content="MoodTrace" />
-  <meta property="og:description" content="A front-end web application for people that want to priotize their mental health by journaling and tracking their general mental state over time." />
+  <meta property="og:description"
+    content="A front-end web application for people that want to priotize their mental health by journaling and tracking their general mental state over time." />
   <meta property="og:url" content="https://quintin-russell.github.io/mood-trace/" />
-  <meta property="og:image" content="https://raw.githubusercontent.com/Quintin-Russell/mood-trace/master/ajax-logo.jpg" />
+  <meta property="og:image"
+    content="https://raw.githubusercontent.com/Quintin-Russell/mood-trace/master/ajax-logo.jpg" />
 
   <title>MoodTrace</title>
   <link rel="icon" href="images/ajax-logo.jpg">
@@ -25,14 +28,17 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
     integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+=======
   </head>
 <body class="work-sans">
   <header>
-      <ul class="header-list">
-        <li data="header-logo">
-            <a>MoodTrace</a>
-        </li>
-      </ul>
+    <ul class="header-list">
+      <li data="header-logo">
+        <a>MoodTrace</a>
+      </li>
+    </ul>
   </header>
   <main>
     <div data-view="home-screen" class="container">
@@ -66,64 +72,36 @@
         <h2 class="new-journal-header grateful-heading">
           What are 5 Things That You Are Grateful For Today?
         </h2>
-      <form
-      id="five-things"
-      class="container">
-        <ul
-        id="grateful-ul"
-        class="container div-background background-none header-list">
-          <li class="form-label">
-            <label
-            for="grateful1"></label>
-            <textarea
-            class="form-label"
-            name="grateful1"
-            id="grateful1">
-            </textarea>
-          </li>
-          <li class="form-label">
-            <label
-            for="grateful2"></label>
-            <textarea
-            class="form-label"
-            name="grateful2"
-            id="grateful2">
-            </textarea>
-          </li>
-          <li class="form-label">
-            <label
-            for="grateful3"></label>
-            <textarea
-            class="form-label"
-            name="grateful13"
-            id="grateful3">
-            </textarea>
-          </li>
-          <li class="form-label">
-            <label
-            for="grateful4"></label>
-            <textarea
-            class="form-label"
-            name="grateful4"
-            id="grateful4">
-            </textarea>
-          </li>
-          <li class="form-label">
-            <label
-            for="grateful5"></label>
-            <textarea
-            class="form-label"
-            name="grateful5"
-            id="grateful5">
-            </textarea>
-          </li>
-        </ul>
-      <div class="row smbutton-container">
-        <button button="save-draft" class="sm-button">Save as Draft</button>
-        <button button="new-journal-cont" class="sm-button">Continue</button>
+        <form id="five-things" class="container">
+          <ul id="grateful-ul" class="container div-background background-none header-list">
+            <li class="form-label">
+              <label for="grateful1"></label>
+              <textarea class="form-label" name="grateful1" id="grateful1"></textarea>
+            </li>
+            <li class="form-label">
+              <label for="grateful2"></label>
+              <textarea class="form-label" name="grateful2" id="grateful2"></textarea>
+            </li>
+            <li class="form-label">
+              <label for="grateful3"></label>
+              <textarea class="form-label" name="grateful13" id="grateful3"></textarea>
+            </li>
+            <li class="form-label">
+              <label for="grateful4"></label>
+              <textarea class="form-label" name="grateful4" id="grateful4"></textarea>
+            </li>
+            <li class="form-label">
+              <label for="grateful5"></label>
+              <textarea class="form-label" name="grateful5" id="grateful5"></textarea>
+            </li>
+          </ul>
+          <div class="row smbutton-container">
+            <button button="save-draft" class="sm-button">Save as Draft</button>
+            <button button="new-journal-cont" class="sm-button">Continue</button>
+          </div>
+        </form>
+
       </div>
-  </form>
-</div>
     </div>
     <div data-view="new-journal" class="hidden">
       <div class="row div-background margin2rem">
@@ -137,13 +115,13 @@
           <h2 data="date" class="header-logo"></h2>
         </section>
       </div>
-\      <div class="container div-background">
+       <div class="container div-background">
         <h2 class="new-journal-header grateful-heading">
           What's On Your Mind?
         </h2>
         <form id="journal-cont" class="container NJ-bkgrd">
           <label for="journal-cont"></label>
-          <textarea class="form-label NJ-textarea" placeholder= "
+          <textarea class="form-label NJ-textarea" placeholder="
 Ideas:
 
 
@@ -159,28 +137,31 @@ Ideas:
 -When was the last time something got you emotional?
 
 
--Write down a stream of consciousness with no filter for 3 minutes" name= "journal-cont" id="journal-cont-text"></textarea>
+-Write down a stream of consciousness with no filter for 3 minutes" name="journal-cont"
+            id="journal-cont-text"></textarea>
         </form>
-      <div class="row smbutton-container">
-        <button button="save-draft" class="sm-button">Save as Draft</button>
-        <button button="done" class="sm-button">Done!</button>
-      </div>
+        <div class="row smbutton-container">
+          <button button="save-draft" class="sm-button">Save as Draft</button>
+          <button button="done" class="sm-button">Done!</button>
+        </div>
       </div>
     </div>
     <div data-view="done-modal" class="hidden">
       <div class="overlay container">
         <div class="modal container">
-          <section>
-             <h2>Nice Work!</h2>
-            <p class="roboto">Thanks for taking some time out of your day to help yourself. Jounaling is one of the most positive things you can do
-            for your mental health and a common denominator for top performers in any field!</p>
+          <section class="modal-message">
+            <h2>Nice Work!</h2>
+            <p class="roboto">Thanks for taking some time out of your day to help yourself. Jounaling is one of the most
+              positive things you can do
+              for your mental health and a common denominator for top performers in any field!</p>
           </section>
           <h1 data="modal-score"></h1>
-          <p class="modal-desc roboto">Scoring: 2 = Very Positive, 1 = Positive, 0 = Neutral,  -1 = Negative,  -2 = Very Negative</p>
+          <p class="modal-desc roboto">Scoring: 2 = Very Positive, 1 = Positive, 0 = Neutral, -1 = Negative, -2 = Very
+            Negative</p>
           <p data="modal-quote" class="roboto"></p>
           <div>
-          <button button="view-moodgraph" class="lrg-button">View Your MoodGraph</button>
-          <button button="home" class="lrg-button">Close</button>
+            <button button="view-moodgraph" class="lrg-button">View Your MoodGraph</button>
+            <button button="home" class="lrg-button">Close</button>
           </div>
 
         </div>
@@ -198,7 +179,7 @@ Ideas:
       </div>
       <div class="lrg-button-cont container">
         <button button="home" class="chart-button lrg-button">Return To Home Screen</button>
-     </div>
+      </div>
     </div>
     <div data-view="draft" class="hidden">
       <div data="draft-list" class="container">
@@ -215,8 +196,8 @@ Ideas:
       <div data="draft-delete-modal" class="hidden`">
         <div data="draft-delete-cont" class="hidden">
           <h2>
-          Are you sure you don't need this draft anymore? <br>
-          Once deleted, it will be gone forever!
+            Are you sure you don't need this draft anymore? <br>
+            Once deleted, it will be gone forever!
           </h2>
           <div class="row smbutton-container">
             <button data="draftmodal-delete-but" class="sm-button">Delete Draft</button>
@@ -231,4 +212,5 @@ Ideas:
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>

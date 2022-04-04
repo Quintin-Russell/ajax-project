@@ -20,6 +20,7 @@
 
 .modal {
     background-color: white;
+    filter: drop-shadow(2px 4px 6px black);
 }
 
 .roboto {
@@ -55,11 +56,7 @@
   background-color: #c9e4c5;
 }
 
-.sm-button:hover,
-.lrg-button:hover {
-  cursor: pointer;
-  background-color: #b5cda3;
-}
+
 
 .header-logo {
   color: rgba(0, 0, 0, 0.4);
@@ -97,9 +94,14 @@
 
 #header-logo:hover {
   cursor: pointer;
-  color: black;
+  text-decoration: underline;
 }
 
+.sm-button:hover,
+.lrg-button:hover {
+  cursor: pointer;
+  background-color: #b5cda3;
+}
 .draft-desc {
   text-align: center;
 }
