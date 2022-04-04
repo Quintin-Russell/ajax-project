@@ -9,7 +9,9 @@
   </dt>
 </dl>
 
-- JavaScript ES6
+- JavaScript ES6 (including jQuery)
+  - DOM manipulation using jQuery
+  - localStorage to save and retrieve session data 
 - HTML
 - CSS3
 
