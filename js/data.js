@@ -25,17 +25,23 @@ function Entry() {
   this.draftNum = null;
 }
 
-const previousEntries = localStorage.getItem('entries');
-if (previousEntries != null) {
-  entries = JSON.parse(previousEntries);
-}
+// const previousEntries = localStorage.getItem('entries');
+if (localStorage.getItem('entries')) entries = JSON.parse(localStorage.getItem('entries'));
 
-const previousDrafts = localStorage.getItem('drafts');
-if (previousDrafts != null) {
-  drafts = JSON.parse(previousDrafts);
-}
+// const previousDrafts = localStorage.getItem('drafts');
+if (localStorage.getItem('drafts')) drafts = JSON.parse(localStorage.getItem('drafts'));
 
-window.addEventListener('beforeunload', function (event) {
+// window.addEventListener('beforeunload', function (event) {
+//   drafts.editing = null;
+//   currentObj = null;
+//   const entriesJSON = JSON.stringify(entries);
+//   drafts.renderedTitles = [];
+//   const draftsJSON = JSON.stringify(drafts);
+//   localStorage.setItem('entries', entriesJSON);
+//   localStorage.setItem('drafts', draftsJSON);
+// });
+
+$(window).on("unload", () => {
   drafts.editing = null;
   currentObj = null;
   const entriesJSON = JSON.stringify(entries);
@@ -43,4 +49,4 @@ window.addEventListener('beforeunload', function (event) {
   const draftsJSON = JSON.stringify(drafts);
   localStorage.setItem('entries', entriesJSON);
   localStorage.setItem('drafts', draftsJSON);
-});
+})
